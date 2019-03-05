@@ -1,0 +1,167 @@
+<div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Active  Flows" iconBackgroundColor="#41a5f6" iconStyleClass="fa fa-hdd-o">
+      10.5M
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Bandwidth IN" iconBackgroundColor="#61bc6c" iconStyleClass="fa fa-code">
+      8.3 Gb/s
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Bandwidth Out" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o">
+      2.1 Gb/s
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Packets IN" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o">
+      20.3 Mpps
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Packets Out" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o">
+      16.3 Mpps
+    </mk-box-info>
+  </div>
+
+</div>
+<!-- /.row -->
+
+<!-- Main row -->
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <mk-box header="Bandwidth Usage (Gb/s)" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <mk-box header="Bandwdith IN/OUT" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+
+    <mk-box header="Minultely update" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=lastMinLogoutOption></app-donut>
+    </mk-box>
+  </div>
+
+</div>
+<!-- /.row -->
+
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+
+    <mk-box header="Packet Hits  (pps)" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <mk-box header="Packets IN/OUT " [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+
+    <mk-box header="Minultely update" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=lastMinLogoutOption></app-donut>
+    </mk-box>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-4 col-sm-6 col-xs-12">
+
+    <mk-box header="Active Flows" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+  </div>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+
+    <mk-box header="New Flow Rate" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+  </div>
+
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <mk-box header="Flow Stat by IP stack" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <mk-box header="Minultely update" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+</div>
+
+
+<mk-box header="Clients" [isCollapsable]="false" [isRemovable]="false" contentStyleClass="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>IP Address</th>
+        <th>Username</th>
+        <th># of Flows</th>
+        <th>Bandwidth IN</th>
+        <th>Bandwidth Out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let in of [1,2,3,4,5,6,7,8,9,10]">
+        <td>{{in}} </td>
+        <td>-</td>
+        <td>-</td>
+        <td>User{{in}}</td>
+        <td>-</td>
+        <td>-</td>
+
+      </tr>
+      <!-- <tr *ngFor="let item of clients">
+          <td>
+            <a [routerLink]="['/client',item.key,'view']">
+                <button type="button" class="btn btn-primary btn-block view">View</button>
+            </a>
+            <a href="{{remotePath}}ip={{item.ip_address}}&username={{item.windows_username}}&password={{item.windows_password}}" target="_blank">
+              <button type="button" class="btn btn-success btn-block remote btn-down">Remote</button>
+            </a>
+          </td>
+          <td>{{item.name}}</td>
+          <td>{{item.group_name}}</td>
+          <td>{{item.ip_address}}</td>
+          <td>{{item.brand}}</td>
+          <td>{{item.model}}</td>
+          <td>
+            <a *ngIf="item.status">
+                <button type="button" class="btn btn-primary btn-block online">Online</button>
+            </a>
+            <a *ngIf="!item.status">
+              <button type="button" class="btn btn-success btn-block offline">Offline</button>
+            </a>
+          </td>
+          <td>{{item.last_login | date : 'dd/MM/y HH:mm:ss'}}</td>
+        </tr> -->
+
+    </tbody>
+  </table>
+</mk-box>

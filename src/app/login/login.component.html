@@ -1,3 +1,37 @@
-<p>
-  login works!
-</p>
+<div class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        Kasetsart Network
+      </div>
+      <!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg">เข้าสู่ระบบ</p>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+          <div class="form-group has-feedback">
+            <input type="text" formControlName="username" class="form-control" placeholder="Username">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" formControlName="password" class="form-control" placeholder="Password">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" 
+              class="btn btn-primary btn-block btn-flat" [disabled]="isLoading"
+              >เข้าสู่ระบบ</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+  
+        
+      </div>
+      <!-- /.login-box-body -->
+    </div>
+  </div>
+  
