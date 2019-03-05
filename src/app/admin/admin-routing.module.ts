@@ -5,6 +5,8 @@ import { LoginStatisticComponent } from './login-statistic/login-statistic.compo
 import { TrafficStatisticComponent } from './traffic-statistic/traffic-statistic.component';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TestComponent } from './test/test.component';
+
 
 import { AuthGuard } from '../authorization/auth.guard';
 
@@ -34,6 +36,12 @@ const routes: Routes = [
           title: 'Traffic Statistic'
         },
         component: TrafficStatisticComponent,
+      }, {
+        path: 'test',
+        data: {
+          title: 'Test'
+        },
+        component: TestComponent,
       },
     ]
   },

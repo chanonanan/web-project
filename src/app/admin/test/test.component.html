@@ -1,0 +1,49 @@
+<mk-box header="Profile Information" [isCollapsable]="true" [isRemovable]="false"  [isLoading]="isFormLoading" contentStyleClass="table-responsive">
+  <form [formGroup]="testForm" (ngSubmit)="onSubmitForm()">
+      <!-- <div class="row"> -->
+      <mk-input-group inputErrorColor="warning" class="col-md-6">
+          <mk-input-group-label>Name</mk-input-group-label>
+          <mk-input-group-addon-right><i [ngClass]="testForm.get('name').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+          <mk-input-group-content>
+              <input mkInputText formControlName="name" class="toto form-control"/>
+          </mk-input-group-content>
+          </mk-input-group>
+          <mk-input-group inputErrorColor="warning" class="col-md-6">
+              <mk-input-group-label>Position</mk-input-group-label>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('position').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+              <mk-input-group-content>
+                  <input mkInputText formControlName="position" class="toto form-control"/>
+              </mk-input-group-content>
+          </mk-input-group>
+          <mk-input-group inputErrorColor="warning" class="col-md-6">
+              <mk-input-group-label>Email</mk-input-group-label>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('email').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+              <mk-input-group-content>
+                  <input mkInputText formControlName="email" class="toto form-control"/>
+              </mk-input-group-content>
+          </mk-input-group>
+          <mk-input-group inputErrorColor="warning" class="col-md-6">
+              <mk-input-group-label>Contact Number</mk-input-group-label>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('contact_number').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+              <mk-input-group-content>
+                  <input mkInputText formControlName="contact_number" class="toto form-control"/>
+              </mk-input-group-content>
+          </mk-input-group>
+          <mk-input-group inputErrorColor="warning" class="col-md-6">
+              <mk-input-group-label>Group</mk-input-group-label>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('group').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+              <mk-input-group-content>
+                  <input mkInputText formControlName="group" class="toto form-control" [matAutocomplete]="auto"/>
+                  <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let item of filteredOptions | async" [value]="item.name">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+              </mk-input-group-content>
+          </mk-input-group>
+      <!-- </div> -->
+      <div class="col-md-12">
+          <button type="submit" [disabled]="testForm.invalid" class="btn btn-primary">Update</button>
+      </div>
+      </form>
+</mk-box>

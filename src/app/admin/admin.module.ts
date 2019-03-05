@@ -21,6 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AuthGuard } from '../authorization/auth.guard';
 import { AuthService } from '../service/auth.service';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthService } from '../service/auth.service';
     DonutComponent,
     BarComponent,
     TrafficStatisticComponent,
-    DashboardComponent
+    DashboardComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,
