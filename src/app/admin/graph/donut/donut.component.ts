@@ -15,7 +15,7 @@ export class DonutComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    // console.log(changes);
     this.chartOption =  {
       tooltip: {
           trigger: 'item',

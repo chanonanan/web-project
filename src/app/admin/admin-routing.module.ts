@@ -3,9 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginStatisticComponent } from './login-statistic/login-statistic.component';
 import { TrafficStatisticComponent } from './traffic-statistic/traffic-statistic.component';
-import { QuickViewComponent } from './quick-view/quick-view.component';
 import { AdminComponent } from './admin.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { AuthGuard } from '../authorization/auth.guard';
 
 
 
@@ -13,31 +14,32 @@ const routes: Routes = [
   {
     path: '',
     data: {
-        title: 'Kasetsart University Network  Usage Statistics'
+      title: 'Dashboard'
     },
+    canActivate: [AuthGuard],
     component: AdminComponent,
     children: [
       {
         path: '',
-        component: QuickViewComponent
-      },{
+        component: DashboardComponent
+      }, {
         path: 'login-stat',
         data: {
-            title: 'Login Statistic'
+          title: 'Login Statistic'
         },
         component: LoginStatisticComponent,
-      },{
+      }, {
         path: 'traffic-stat',
         data: {
-            title: 'Traffic Statistic'
+          title: 'Traffic Statistic'
         },
         component: TrafficStatisticComponent,
       },
     ]
   },
-  
+
   { path: '**', redirectTo: 'login' }
-  
+
 
 ];
 

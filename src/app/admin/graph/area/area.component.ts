@@ -15,7 +15,7 @@ export class AreaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    // console.log(changes);
     this.chartOption = {
       tooltip: {
         trigger: 'axis',

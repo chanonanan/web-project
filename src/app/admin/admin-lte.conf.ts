@@ -20,7 +20,7 @@ export const adminLteConf = {
     //     {label: 'Content', route: 'layout/content'}
     //   ]},
     // {label: 'COMPONENTS', separator: true},
-    {label: 'Quick View', route: '/', iconClasses: 'fa fa-tasks'},
+    {label: 'Dashboard', route: '/', iconClasses: 'fa fa-tasks'},
     {label: 'Login statistic', route: '/login-stat', iconClasses: 'fa fa-tasks'},
     {label: 'Traffic statistic', route: '/traffic-stat', iconClasses: 'fa fa-exclamation-triangle'},
     // {label: 'Boxs', iconClasses: 'fa fa-files-o', children: [

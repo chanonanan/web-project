@@ -1,0 +1,28 @@
+<div class="navbar-custom-menu">
+  <ul class="nav navbar-nav">
+    <li mk-dropdown type="list" [isWrapper]="false" class="user user-menu">
+      <mk-dropdown-toggle>
+        <a #toggleElement>
+          
+          <span class="hidden-xs">{{user.username}}</span>
+        </a>
+      </mk-dropdown-toggle>
+      <mk-dropdown-menu>
+        <li class="user-header">
+
+          <p>
+            {{user.firstname}} {{user.lastname}}
+          </p>
+        </li>
+        <li class="user-footer">
+          <div class="pull-left">
+            <button type="button" class="btn btn-default btn-flat" (click)="changePassword()">แก้ไขรหัสผ่าน</button>
+          </div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-default btn-flat" (click)="logout()">ออกจากระบบ</button>
+          </div>
+        </li>
+      </mk-dropdown-menu>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,187 @@
+<div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Login/M" iconBackgroundColor="#41a5f6" iconStyleClass="fa fa-hdd-o">
+      5
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Active Users" iconBackgroundColor="#61bc6c" iconStyleClass="fa fa-code">
+      23,110
+    </mk-box-info>
+  </div>
+
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <mk-box-info header="Active Device" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o">
+      34,350
+    </mk-box-info>
+  </div>
+
+</div>
+<!-- /.row -->
+
+<!-- Main row -->
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <mk-box header="Login Hits" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <mk-box header="Concurrent Login by IP Type" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+
+    <mk-box header="Last Minute Logout by Action" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=lastMinLogoutOption></app-donut>
+    </mk-box>
+  </div>
+
+</div>
+<!-- /.row -->
+
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+
+    <mk-box header="Login IP Stack" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <mk-box header="Concurrent Login by Network Type" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+
+    <mk-box header="Concurrent Login by Action" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=lastMinLogoutOption></app-donut>
+    </mk-box>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+
+    <mk-box header="Login IP Type" [isCollapsable]="false" [isRemovable]="false">
+      <app-area [data]=graph_data></app-area>
+    </mk-box>
+  </div>
+
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <mk-box header="Concurrent Login Server  Distribution" [isCollapsable]="false" [isRemovable]="false">
+      <app-donut [data]=concurrent()></app-donut>
+    </mk-box>
+
+  </div>
+
+</div>
+
+<mk-box header="Top Most Concurrent Login Users" [isCollapsable]="false" [isRemovable]="false" contentStyleClass="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th># of Logins</th>
+        <th>Bandwidth IN</th>
+        <th>Bandwidth Out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let in of [1,2,3,4,5,6,7,8,9,10]">
+        <td>{{in}} </td>
+        <td>User{{in}}</td>
+        <td>40</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+
+      </tr>
+      <!-- <tr *ngFor="let item of clients">
+            <td>
+              <a [routerLink]="['/client',item.key,'view']">
+                  <button type="button" class="btn btn-primary btn-block view">View</button>
+              </a>
+              <a href="{{remotePath}}ip={{item.ip_address}}&username={{item.windows_username}}&password={{item.windows_password}}" target="_blank">
+                <button type="button" class="btn btn-success btn-block remote btn-down">Remote</button>
+              </a>
+            </td>
+            <td>{{item.name}}</td>
+            <td>{{item.group_name}}</td>
+            <td>{{item.ip_address}}</td>
+            <td>{{item.brand}}</td>
+            <td>{{item.model}}</td>
+            <td>
+              <a *ngIf="item.status">
+                  <button type="button" class="btn btn-primary btn-block online">Online</button>
+              </a>
+              <a *ngIf="!item.status">
+                <button type="button" class="btn btn-success btn-block offline">Offline</button>
+              </a>
+            </td>
+            <td>{{item.last_login | date : 'dd/MM/y HH:mm:ss'}}</td>
+          </tr> -->
+
+    </tbody>
+  </table>
+</mk-box>
+
+<mk-box header="Top Most Login Hits in last 24 Hrs" [isCollapsable]="false" [isRemovable]="false" contentStyleClass="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>IP Address</th>
+        <th>Username</th>
+        <th># of Logins Hits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let in of [1,2,3,4,5,6,7,8,9,10]">
+        <td>{{in}} </td>
+        <td>A.B.C.D</td>
+        <td>User{{in}}</td>
+        <td>40</td>
+      </tr>
+      <!-- <tr *ngFor="let item of clients">
+              <td>
+                <a [routerLink]="['/client',item.key,'view']">
+                    <button type="button" class="btn btn-primary btn-block view">View</button>
+                </a>
+                <a href="{{remotePath}}ip={{item.ip_address}}&username={{item.windows_username}}&password={{item.windows_password}}" target="_blank">
+                  <button type="button" class="btn btn-success btn-block remote btn-down">Remote</button>
+                </a>
+              </td>
+              <td>{{item.name}}</td>
+              <td>{{item.group_name}}</td>
+              <td>{{item.ip_address}}</td>
+              <td>{{item.brand}}</td>
+              <td>{{item.model}}</td>
+              <td>
+                <a *ngIf="item.status">
+                    <button type="button" class="btn btn-primary btn-block online">Online</button>
+                </a>
+                <a *ngIf="!item.status">
+                  <button type="button" class="btn btn-success btn-block offline">Offline</button>
+                </a>
+              </td>
+              <td>{{item.last_login | date : 'dd/MM/y HH:mm:ss'}}</td>
+            </tr> -->
+
+    </tbody>
+  </table>
+</mk-box>

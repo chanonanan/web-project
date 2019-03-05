@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import {TokenHelper} from '../authorization/token.helper';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +15,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
   loginForm: FormGroup;
   isLoading:boolean;
   constructor(private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService,
+    private tHelper:TokenHelper
+    ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,20 +36,20 @@ export class LoginComponent implements AfterViewInit, OnInit {
       return;
     }
     this.isLoading = true;
-    // this.authService.auth(this.loginForm.value.username,this.loginForm.value.password)
-    // .subscribe((data)=>{
-    //   let res:any;
-    //   res = data as any;
-    //   this.tHelper.setToken(res.token);
-    //   this.isLoading = false;
-    //   console.log('success');
-    //   this.router.navigate(['/']);
-    //   console.log('success',2);
+    this.authService.auth(this.loginForm.value.username,this.loginForm.value.password)
+    .subscribe((data)=>{
+      let res:any;
+      res = data as any;
+      this.tHelper.setToken(res.token);
+      this.isLoading = false;
+      console.log('success');
+      this.router.navigate(['/']);
+      console.log('success',2);
       
-    // },(err)=>{
-    //   alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-    //   this.isLoading = false;
-    // });
+    },(err)=>{
+      alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+      this.isLoading = false;
+    });
     
   }
 }

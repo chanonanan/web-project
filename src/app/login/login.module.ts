@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenHelper} from '../authorization/token.helper';
+import {AuthService } from '../service/auth.service';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginRoutingModule,
     FormsModule,
     ReactiveFormsModule
-  ]
+  ],
+  providers:[TokenHelper,AuthService],
+  exports:[LoginComponent]
 })
 export class LoginModule { }
