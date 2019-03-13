@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminComponent } from './admin.component';
+import { AdminComponent } from 'admin/admin.component';
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { CoreModule } from './core/core.module';
+import { AdminRoutingModule } from 'admin/admin-routing.module';
+import { CoreModule } from 'admin/core/core.module';
 
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { NgxEchartsModule } from 'ngx-echarts';
 import { InputGroupModule, InputTextModule as mkInputTextModule, BoxModule, BoxInfoModule } from 'angular-admin-lte';
+import { MatButtonModule, MatCheckboxModule, MatAutocompleteModule, MatProgressSpinnerModule } from '@angular/material';
 
-import { adminLteConf } from './admin-lte.conf';
+import { adminLteConf } from 'admin/admin-lte.conf';
 import { LayoutModule } from 'angular-admin-lte';
-import { LoginStatisticComponent } from './login-statistic/login-statistic.component';
-import { AreaComponent } from './graph/area/area.component';
-import { DonutComponent } from './graph/donut/donut.component';
-import { BarComponent } from './graph/bar/bar.component';
-import { TrafficStatisticComponent } from './traffic-statistic/traffic-statistic.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginStatisticComponent } from 'admin/login-statistic/login-statistic.component';
+import { AreaComponent } from 'admin/graph/area/area.component';
+import { DonutComponent } from 'admin/graph/donut/donut.component';
+import { BarComponent } from 'admin/graph/bar/bar.component';
+import { TrafficStatisticComponent } from 'admin/traffic-statistic/traffic-statistic.component';
+import { DashboardComponent } from 'admin/dashboard/dashboard.component';
 
-import { AuthGuard } from '../authorization/auth.guard';
-import { AuthService } from '../service/auth.service';
-import { TestComponent } from './test/test.component';
+import { AuthGuard } from 'authorization/auth.guard';
+import { AuthService } from 'service/auth.service';
+import { TestComponent } from 'admin/test/test.component';
+import { TestViewComponent } from './test/view/view.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { TestComponent } from './test/test.component';
     BarComponent,
     TrafficStatisticComponent,
     DashboardComponent,
-    TestComponent
+    TestComponent,
+    TestViewComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +50,13 @@ import { TestComponent } from './test/test.component';
     BoxInfoModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthGuard,

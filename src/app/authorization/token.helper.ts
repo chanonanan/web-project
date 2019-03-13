@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { local } from '../constant';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpClient} from '@angular/common/http';
+import { local } from 'constant';
+import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +9,7 @@ export class TokenHelper {
 
     constructor(private http: HttpClient) { }
 
-    setHeader() {
+    setHeader(params:any) {
         let auth:any;
         if(localStorage.getItem(local.token)){
             auth = localStorage.getItem(local.token);
@@ -22,6 +21,7 @@ export class TokenHelper {
                 'Content-Type': 'application/json',
                 'authorization': auth
             }),
+            params: params
         };
     }
 

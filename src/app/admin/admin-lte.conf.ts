@@ -20,10 +20,10 @@ export const adminLteConf = {
     //     {label: 'Content', route: 'layout/content'}
     //   ]},
     // {label: 'COMPONENTS', separator: true},
-    {label: 'Dashboard', route: '/', iconClasses: 'fa fa-tasks'},
-    {label: 'Login statistic', route: '/login-stat', iconClasses: 'fa fa-tasks'},
-    {label: 'Traffic statistic', route: '/traffic-stat', iconClasses: 'fa fa-exclamation-triangle'},
-    {label: 'Traffic statistic', route: '/test', iconClasses: 'fa fa-exclamation-triangle'},
+    {label: 'Dashboard', route: '/', iconClasses: 'fa fa-dashboard'},
+    {label: 'Test History', route: '/login-stat', iconClasses: 'fa fa-tasks'},
+    // {label: 'Traffic statistic', route: '/traffic-stat', iconClasses: 'fa fa-exclamation-triangle'},
+    {label: 'Test', route: '/test', iconClasses: 'fa fa-power-off'},
     // {label: 'Boxs', iconClasses: 'fa fa-files-o', children: [
     //     {label: 'Default Box', route: 'boxs/box'},
     //     {label: 'Info Box', route: 'boxs/info-box'},

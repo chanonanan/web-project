@@ -1,49 +1,125 @@
-<mk-box header="Profile Information" [isCollapsable]="true" [isRemovable]="false"  [isLoading]="isFormLoading" contentStyleClass="table-responsive">
-  <form [formGroup]="testForm" (ngSubmit)="onSubmitForm()">
-      <!-- <div class="row"> -->
-      <mk-input-group inputErrorColor="warning" class="col-md-6">
-          <mk-input-group-label>Name</mk-input-group-label>
-          <mk-input-group-addon-right><i [ngClass]="testForm.get('name').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
-          <mk-input-group-content>
-              <input mkInputText formControlName="name" class="toto form-control"/>
-          </mk-input-group-content>
-          </mk-input-group>
-          <mk-input-group inputErrorColor="warning" class="col-md-6">
-              <mk-input-group-label>Position</mk-input-group-label>
-              <mk-input-group-addon-right><i [ngClass]="testForm.get('position').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+<form [formGroup]="testForm" (ngSubmit)="onSubmitForm()">
+    <mk-box header="Test Information" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isFormLoading"
+        contentStyleClass="table-responsive">
+
+        <!-- <div class="row"> -->
+        <mk-input-group inputErrorColor="warning" class="col-md-6">
+            <mk-input-group-label>Test Name</mk-input-group-label>
+            <mk-input-group-addon-right><i
+                    [ngClass]="testForm.get('test_name').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+            </mk-input-group-addon-right>
+            <mk-input-group-content>
+                <input mkInputText formControlName="test_name" class="toto form-control" />
+            </mk-input-group-content>
+        </mk-input-group>
+        <!-- <mk-input-group inputErrorColor="warning" class="col-md-6">
+              <mk-input-group-label>Tester</mk-input-group-label>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('player_id').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
               <mk-input-group-content>
-                  <input mkInputText formControlName="position" class="toto form-control"/>
+                  <input mkInputText formControlName="player_id" class="toto form-control"/>
               </mk-input-group-content>
-          </mk-input-group>
-          <mk-input-group inputErrorColor="warning" class="col-md-6">
-              <mk-input-group-label>Email</mk-input-group-label>
-              <mk-input-group-addon-right><i [ngClass]="testForm.get('email').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
-              <mk-input-group-content>
-                  <input mkInputText formControlName="email" class="toto form-control"/>
-              </mk-input-group-content>
-          </mk-input-group>
-          <mk-input-group inputErrorColor="warning" class="col-md-6">
+          </mk-input-group> -->
+        <!-- <mk-input-group inputErrorColor="warning" class="col-md-6">
               <mk-input-group-label>Contact Number</mk-input-group-label>
-              <mk-input-group-addon-right><i [ngClass]="testForm.get('contact_number').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
+              <mk-input-group-addon-right><i [ngClass]="testForm.get('date').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
               <mk-input-group-content>
-                  <input mkInputText formControlName="contact_number" class="toto form-control"/>
+                  <input mkInputText formControlName="date" class="toto form-control"/>
               </mk-input-group-content>
-          </mk-input-group>
-          <mk-input-group inputErrorColor="warning" class="col-md-6">
-              <mk-input-group-label>Group</mk-input-group-label>
-              <mk-input-group-addon-right><i [ngClass]="testForm.get('group').invalid ? 'fa fa-times' : 'fa fa-check'"></i></mk-input-group-addon-right>
-              <mk-input-group-content>
-                  <input mkInputText formControlName="group" class="toto form-control" [matAutocomplete]="auto"/>
-                  <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let item of filteredOptions | async" [value]="item.name">
-                        {{item.name}}
-                      </mat-option>
-                    </mat-autocomplete>
-              </mk-input-group-content>
-          </mk-input-group>
-      <!-- </div> -->
-      <div class="col-md-12">
-          <button type="submit" [disabled]="testForm.invalid" class="btn btn-primary">Update</button>
-      </div>
-      </form>
-</mk-box>
+          </mk-input-group> -->
+        <mk-input-group inputErrorColor="warning" class="col-md-6">
+            <mk-input-group-label>Player Name</mk-input-group-label>
+            <mk-input-group-addon-right><i
+                    [ngClass]="testForm.get('player_id').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+            </mk-input-group-addon-right>
+            <mk-input-group-content>
+                <input mkInputText formControlName="players_name" class="toto form-control"
+                    [matAutocomplete]="player" placeholder="Search by firstname, lastname, username or email"/>
+
+                <mat-autocomplete #player="matAutocomplete">
+                    <mat-option *ngIf="isLoading" class="is-loading">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </mat-option>
+                    <mat-option *ngIf="!isLoading && filteredOptions.length==0" class="is-loading">ไม่พบนักกีฬา
+                    </mat-option>
+                    <ng-container *ngIf="!isLoading">
+                        <mat-option *ngFor="let user of filteredOptions" [value]="user.firstname"
+                            (click)="selectPlayer(user.id)">
+                            <span>{{ user.firstname }} {{user.lastname}}</span>
+                            <small> | username: {{user.username}}</small>
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+            </mk-input-group-content>
+        </mk-input-group>
+        <!-- </div> -->
+        <mk-tabs>
+            <mk-tabs-header>Patthen</mk-tabs-header>
+            <mk-tab>
+                <mk-tab-header><a (click)="tabPatthen(false)">Find</a></mk-tab-header>
+                <mk-tab-content>
+                    <div class="row">
+                        <mk-input-group inputErrorColor="warning" class="col-md-6">
+                            <mk-input-group-label>Find Patthen</mk-input-group-label>
+                            <mk-input-group-addon-right><i
+                                    [ngClass]="testForm.get('patthen_id').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                            </mk-input-group-addon-right>
+                            <mk-input-group-content>
+                                <input mkInputText formControlName="patthen_name" class="toto form-control"
+                                    [matAutocomplete]="patthen"
+                                    placeholder="Search by patthen, patthen name, create date or creator" />
+
+                                <mat-autocomplete #patthen="matAutocomplete">
+                                    <mat-option *ngIf="isLoading" class="is-loading">
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </mat-option>
+                                    <mat-option *ngIf="!isLoading && patthenOptions.length==0" class="is-loading">
+                                        ไม่พบแพทเทิร์น
+                                    </mat-option>
+                                    <ng-container *ngIf="!isLoading">
+                                        <mat-option *ngFor="let patthen of patthenOptions"
+                                            [value]="patthen.patthen_name" (click)="selectPatthen(patthen.id)">
+                                            <span>{{ patthen.patthen_name }}</span>
+                                            <small> | Patthen: {{patthen.patthen}}</small>
+                                        </mat-option>
+                                    </ng-container>
+                                </mat-autocomplete>
+                            </mk-input-group-content>
+                        </mk-input-group>
+
+                    </div>
+                </mk-tab-content>
+            </mk-tab>
+            <mk-tab>
+                <mk-tab-header><a (click)="tabPatthen(true)">Create</a></mk-tab-header>
+                <mk-tab-content>
+                    <div class="row">
+                        <mk-input-group inputErrorColor="warning" class="col-md-6">
+                            <mk-input-group-label>Patthen Name</mk-input-group-label>
+                            <mk-input-group-addon-right><i
+                                    [ngClass]="testForm.get('patthen_name').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                            </mk-input-group-addon-right>
+                            <mk-input-group-content>
+                                <input mkInputText formControlName="patthen_name" class="toto form-control" />
+                            </mk-input-group-content>
+                        </mk-input-group>
+
+                        <mk-input-group inputErrorColor="warning" class="col-md-6">
+                            <mk-input-group-label>Patthen</mk-input-group-label>
+                            <mk-input-group-addon-right><i
+                                    [ngClass]="testForm.get('patthen').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                            </mk-input-group-addon-right>
+                            <mk-input-group-content>
+                                <input mkInputText formControlName="patthen" class="toto form-control" />
+                            </mk-input-group-content>
+                        </mk-input-group>
+
+                    </div>
+                </mk-tab-content>
+            </mk-tab>
+        </mk-tabs>
+
+        <div class="col-md-12">
+            <button type="submit" [disabled]="testForm.invalid" class="btn btn-primary">Create</button>
+        </div>
+    </mk-box>
+</form>

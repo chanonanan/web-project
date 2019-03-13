@@ -1,0 +1,34 @@
+<mk-box header="Test Information" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isLoading"
+  contentStyleClass="table-responsive">
+  <div class="col-md-12" *ngIf="info">
+    <p><b>Test Name: </b> {{info.test_name}}</p>
+    <p><b>Date: </b> {{info.date | date : "d MMMM yyyy, HH:mm:ss"}}</p>
+    <p><b>Player: </b> {{info.Player.firstname}} {{info.Player.lastname}}</p>
+    <p><b>Coach: </b> {{info.Coach.firstname}} {{info.Coach.lastname}}</p>
+    <p><b>Patthen: </b> {{info.Patthen.patthen}}</p>
+  </div>
+</mk-box>
+
+<mk-box header="Test" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
+  contentStyleClass="table-responsive">
+  <div class="col-md-12" *ngIf="info">
+    <p><b>Next: </b> {{info.Patthen.patthen[0]}}</p>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Lab</th>
+        <th>Time</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="labs.length>0">
+      <tr *ngFor="let lab of labs">
+        <td>{{lab.count}}</td>
+        <td>{{lab.time | date : 'dd/MM/y HH:mm:ss'}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</mk-box>
