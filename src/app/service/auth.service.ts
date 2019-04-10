@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { api as apiConst } from 'constant';
 import { TokenHelper } from 'authorization/token.helper';
+import { RegisterForm } from 'model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,8 @@ export class AuthService {
       username: username,
       password: password
     }, this.tHelper.setHeader({}));
+  }
+  register(regis:RegisterForm) {
+    return this.http.post(apiConst.HOST + apiConst.REGISTER_URL, regis, this.tHelper.setHeader({}));
   }
 }

@@ -7,6 +7,7 @@ import { AdminComponent } from 'admin/admin.component';
 import { DashboardComponent } from 'admin/dashboard/dashboard.component';
 import { TestComponent } from 'admin/test/test.component';
 import { TestViewComponent } from './test/view/view.component';
+import { RegisterComponent } from 'register/register.component';
 
 
 import { AuthGuard } from 'authorization/auth.guard';
@@ -54,7 +55,7 @@ const routes: Routes = [
       },
     ]
   },
-
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'login' }
 
 

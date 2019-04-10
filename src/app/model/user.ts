@@ -1,8 +1,9 @@
-export class UserCreateModel {
+export class RegisterForm {
+    firstname:string;
+    lastname:string;
+    email:string;
     username:string;
     password:string;
-    name:string;
-    department:string;
     role_id:number;
 }
 export class UserModel {

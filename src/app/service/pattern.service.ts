@@ -6,12 +6,12 @@ import { TokenHelper } from 'authorization/token.helper';
 @Injectable({
   providedIn: 'root'
 })
-export class PatthenService {
+export class PatternService {
 
   constructor(private http: HttpClient, private tHelper: TokenHelper) { }
-  getPatthen(search:string) {
+  getPattern(search:string) {
     let params = new HttpParams().set('search', search);
-    return this.http.post(apiConst.HOST + apiConst.PATTHEN_URL,{'search':search}, this.tHelper.setHeader({}));
+    return this.http.post(apiConst.HOST + apiConst.PATTERN_URL,{'search':search}, this.tHelper.setHeader({}));
   }
   // auth(username: string, password: string) {
   //   console.log(username,password)

@@ -6,6 +6,7 @@ import { AppRoutingModule } from 'app-routing.module';
 import { AppComponent } from 'app.component';
 import { AdminModule } from 'admin/admin.module';
 import { LoginModule } from 'login/login.module';
+import { RegisterModule } from 'register/register.module';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AdminModule,
     LoginModule,
+    RegisterModule,
     HttpClientModule
   ],
   providers: [],

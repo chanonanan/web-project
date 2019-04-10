@@ -1,32 +1,66 @@
-<mk-box header="Test Information" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isLoading"
-  contentStyleClass="table-responsive">
-  <div class="col-md-12" *ngIf="info">
-    <p><b>Test Name: </b> {{info.test_name}}</p>
-    <p><b>Date: </b> {{info.date | date : "d MMMM yyyy, HH:mm:ss"}}</p>
-    <p><b>Player: </b> {{info.Player.firstname}} {{info.Player.lastname}}</p>
-    <p><b>Coach: </b> {{info.Coach.firstname}} {{info.Coach.lastname}}</p>
-    <p><b>Patthen: </b> {{info.Patthen.patthen}}</p>
+<div class="row">
+  <div class="col-md-6">
+    <mk-box header="Test Information" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isLoading"
+    contentStyleClass="table-responsive">
+    <div class="col-md-12" *ngIf="info">
+      <h3><b>Test Name: </b> {{info.test_name}}</h3>
+      <h3><b>Date: </b> {{info.date | date : "d MMMM yyyy, HH:mm:ss"}}</h3>
+      <h3><b>Player: </b> {{info.Player.firstname}} {{info.Player.lastname}}</h3>
+      <h3><b>Coach: </b> {{info.Coach.firstname}} {{info.Coach.lastname}}</h3>
+      <h3><b>Pattern: </b> {{info.Pattern.pattern}}</h3>
+    </div>
+  </mk-box>
   </div>
-</mk-box>
+  <div class="col-md-6">
+    <mk-box header="Control" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isPatternLoading"
+    contentStyleClass="table-responsive">
+    <mk-box-content>
+      <div *ngIf="pattern" style="height: 183px;">
+        <div class="col-md-12">
+          <h1><b>{{pattern.text}}: </b>{{pattern.next}}</h1>
+          <h1>{{time[0] | number: '1.0' }}:{{time[1] | number: '2.0' }}:{{time[2] | number: '2.0' }}{{time[3]}}</h1>
+          
+        </div>
+        
+      </div>
+    </mk-box-content>
+    <mk-box-footer>
+      <div class="col-md-6 btn-row">
+        <button  mat-flat-button color="primary" (click)="clickStart()">Start</button>
+        <button  mat-flat-button color="warn" (click)="clickStop()">Stop</button>
+        <button  mat-flat-button color="accent" (click)="resetTimer()">Reset</button>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+    </mk-box-footer>
+  </mk-box>
+  </div>
+</div>
+
+
+
 
 <mk-box header="Test" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
   contentStyleClass="table-responsive">
   <div class="col-md-12" *ngIf="info">
-    <p><b>Next: </b> {{info.Patthen.patthen[0]}}</p>
+    
   </div>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th>Lab</th>
-        <th>Time</th>
+        <th>Lap</th>
+        <th>Time (sec)</th>
         <th>From</th>
         <th>To</th>
       </tr>
     </thead>
-    <tbody *ngIf="labs.length>0">
+    <tbody>
       <tr *ngFor="let lab of labs">
-        <td>{{lab.count}}</td>
-        <td>{{lab.time | date : 'dd/MM/y HH:mm:ss'}}</td>
+        <td>{{lab.lap}}</td>
+        <td>{{lab.time[0] | number: '1.0' }}:{{lab.time[1] | number: '2.0' }}:{{lab.time[2] | number: '3.0' }}</td>
+        <td>{{lab.from}}</td>
+        <td>{{lab.to}}</td>
       </tr>
       
     </tbody>

@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 import { InputGroupModule, InputTextModule as mkInputTextModule, BoxModule, BoxInfoModule } from 'angular-admin-lte';
-import { MatButtonModule, MatCheckboxModule, MatAutocompleteModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule } from '@angular/material';
 
 import { adminLteConf } from 'admin/admin-lte.conf';
 import { LayoutModule } from 'angular-admin-lte';
@@ -56,7 +56,8 @@ import { TestViewComponent } from './test/view/view.component';
     MatButtonModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [
     AuthGuard,

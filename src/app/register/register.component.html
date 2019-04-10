@@ -1,0 +1,78 @@
+<div class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo">
+      Athlete Test
+    </div>
+
+    <div class="register-box-body">
+      <p class="login-box-msg">Register a new membership</p>
+
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmitForm()">
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('username').touched && registerForm.get('username').invalid,
+        'has-success': registerForm.get('username').touched && registerForm.get('username').valid}">
+          <input type="text" formControlName="username" class="form-control" placeholder="Username">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('password').touched && registerForm.get('password').invalid,
+        'has-success': registerForm.get('password').touched && registerForm.get('password').valid}">
+          <input type="password" formControlName="password" class="form-control" placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('repassword').touched && registerForm.get('repassword').invalid && !passwordValid(),
+        'has-success': registerForm.get('repassword').touched && registerForm.get('repassword').valid && passwordValid()}">
+          <input type="password" formControlName="repassword" class="form-control" placeholder="Retype password">
+          <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+          [ngClass]="{'has-error': registerForm.get('firstname').touched && registerForm.get('firstname').invalid,
+                      'has-success': registerForm.get('firstname').touched && registerForm.get('firstname').valid}">
+          <input type="text" class="form-control" formControlName="firstname" placeholder="Fisrtname">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('lastname').touched && registerForm.get('lastname').invalid,
+        'has-success': registerForm.get('lastname').touched && registerForm.get('lastname').valid}">
+          <input type="text" class="form-control" formControlName="lastname" placeholder="Lastname">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('email').touched && registerForm.get('email').invalid,
+        'has-success': registerForm.get('email').touched && registerForm.get('email').valid}">
+          <input type="email" class="form-control" formControlName="email" placeholder="Email">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback"
+        [ngClass]="{'has-error': registerForm.get('role_id').touched && registerForm.get('role_id').invalid,
+        'has-success': registerForm.get('role_id').touched && registerForm.get('role_id').valid}">
+          <select formControlName="role_id" class="form-control" placeholder="Role">
+            <option value="null" disabled="true" [selected]="true" class="disable">Role</option>
+            <option *ngFor="let role of roles" [value]="role.value">{{role.viewValue}}</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" [disabled]="registerForm.invalid || isLoading">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <!-- <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+          Facebook</a>
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+          Google+</a>
+      </div> -->
+
+      <a routerLink="/login" class="text-center">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div>
+</div>

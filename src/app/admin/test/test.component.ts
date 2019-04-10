@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserModel } from 'model/user';
 import { ApiResponse } from 'model/apiResponse';
-import { TestCreate } from 'model/test';
+import { TestCreate, Style } from 'model/test';
 import { TokenHelper } from 'authorization/token.helper';
 import { TestService } from 'service/test.service';
 import { UserService } from 'service/user.service';
-import { PatthenService } from 'service/patthen.service';
+import { PatternService } from 'service/pattern.service';
 
 import { Observable } from 'rxjs';
 import { switchMap, debounceTime, tap, finalize } from 'rxjs/operators';
@@ -27,14 +27,19 @@ export class TestComponent implements OnInit {
   players = [{ 'name': 'asdas' }];
   isFormLoading = true;
   filteredOptions = [];
-  patthenOptions = [];
+  patternOptions = [];
   isLoading = false;
+  styles: Style[] = [
+    {value: 0, viewValue: 'Fix Pattern not allow error'},
+    {value: 1, viewValue: 'Fix Pattern allow error'},
+    {value: 2, viewValue: 'Free run'}
+  ];
   constructor(
     private formBuilder: FormBuilder,
     private tHelper: TokenHelper,
     private testService: TestService,
     private userService: UserService,
-    private patthenService: PatthenService,
+    private patternService: PatternService,
     private router: Router
   ) { }
 
@@ -46,10 +51,11 @@ export class TestComponent implements OnInit {
       date: [new Date(), [Validators.required]],
       player_id: [null, [Validators.required]],
       coach_id: [this.coach.id, [Validators.required]],
-      patthen_id: [null, [Validators.required]],
-      patthen_name: [null],
-      patthen: [null],
-      players_name: [null]
+      pattern_id: [null, [Validators.required]],
+      pattern_name: [null],
+      pattern: [null],
+      players_name: [null],
+      style: [null, [Validators.required]]
     });
     this.testForm
       .get('players_name')
@@ -80,12 +86,12 @@ export class TestComponent implements OnInit {
       });
 
       this.testForm
-      .get('patthen_name')
+      .get('pattern_name')
       .valueChanges
       .pipe(
         debounceTime(300),
         tap(() => this.isLoading = true),
-        switchMap(value => this.patthenService.getPatthen(value)
+        switchMap(value => this.patternService.getPattern(value)
           .pipe(
             finalize(() => this.isLoading = false),
           )
@@ -95,16 +101,16 @@ export class TestComponent implements OnInit {
         let result: ApiResponse;
         result = users as ApiResponse;
         if(result.successful){
-          this.patthenOptions = result.data;
+          this.patternOptions = result.data;
         }else{
-          this.patthenOptions = [];
+          this.patternOptions = [];
         }
         
         console.log(result)
       }, err => {
         let result: ApiResponse;
         result = err as ApiResponse;
-        this.patthenOptions = [];
+        this.patternOptions = [];
       });
 
 
@@ -142,26 +148,27 @@ export class TestComponent implements OnInit {
   }
 
   selectPlayer(id){
+    console.log(this.testForm)
     this.testForm.controls.player_id.setValue(id);
   }
 
-  selectPatthen(id){
-    this.testForm.controls.patthen_id.setValue(id);
+  selectPattern(id){
+    this.testForm.controls.pattern_id.setValue(id);
   }
 
-  tabPatthen(create){
+  tabPattern(create){
     if(create){
-      this.testForm.get('patthen_id').clearValidators();
-      this.testForm.get('patthen').setValidators([Validators.required]);
-      this.testForm.get('patthen_name').setValidators([Validators.required]);
+      this.testForm.get('pattern_id').clearValidators();
+      this.testForm.get('pattern').setValidators([Validators.required]);
+      this.testForm.get('pattern_name').setValidators([Validators.required]);
     }else{
-      this.testForm.get('patthen_id').setValidators([Validators.required]);
-      this.testForm.get('patthen').clearValidators();
-      this.testForm.get('patthen_name').clearValidators();
+      this.testForm.get('pattern_id').setValidators([Validators.required]);
+      this.testForm.get('pattern').clearValidators();
+      this.testForm.get('pattern_name').clearValidators();
     }
-    this.testForm.get('patthen_id').updateValueAndValidity();
-    this.testForm.get('patthen').updateValueAndValidity();
-    this.testForm.get('patthen_name').updateValueAndValidity();
+    this.testForm.get('pattern_id').updateValueAndValidity();
+    this.testForm.get('pattern').updateValueAndValidity();
+    this.testForm.get('pattern_name').updateValueAndValidity();
   }
 
 }

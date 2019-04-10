@@ -3,7 +3,7 @@ export class TestCreate {
     date:string;
     player_id:number;
     coach_id:number;
-    patthen_id:number;
+    pattern_id:number;
 }
 
 export class TestModel {
@@ -15,3 +15,15 @@ export class TestModel {
     createdAt:string;
     updatedAt:string;
 }
+
+export class LapModel {
+    lap:number;
+    time:string;
+    from:string;
+    to:string;
+}
+
+export interface Style {
+    value: number;
+    viewValue: string;
+  }
