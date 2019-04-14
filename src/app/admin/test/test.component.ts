@@ -30,10 +30,11 @@ export class TestComponent implements OnInit {
   patternOptions = [];
   isLoading = false;
   styles: Style[] = [
-    {value: 0, viewValue: 'Fix Pattern not allow error'},
-    {value: 1, viewValue: 'Fix Pattern allow error'},
-    {value: 2, viewValue: 'Free run'}
+    { value: 0, viewValue: 'Fix Pattern not allow error' },
+    { value: 1, viewValue: 'Fix Pattern allow error' },
+    { value: 2, viewValue: 'Free run' }
   ];
+  public toggleDropdown2 = true;
   constructor(
     private formBuilder: FormBuilder,
     private tHelper: TokenHelper,
@@ -45,7 +46,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
     this.coach = this.tHelper.getUser() as UserModel;
-    console.log('coach',this.coach);
+    console.log('coach', this.coach);
     this.testForm = this.formBuilder.group({
       test_name: [null, [Validators.required]],
       date: [new Date(), [Validators.required]],
@@ -72,12 +73,12 @@ export class TestComponent implements OnInit {
       .subscribe(users => {
         let result: ApiResponse;
         result = users as ApiResponse;
-        if(result.successful){
+        if (result.successful) {
           this.filteredOptions = result.data;
-        }else{
+        } else {
           this.filteredOptions = [];
         }
-        
+
         console.log(result)
       }, err => {
         let result: ApiResponse;
@@ -85,7 +86,7 @@ export class TestComponent implements OnInit {
         this.filteredOptions = [];
       });
 
-      this.testForm
+    this.testForm
       .get('pattern_name')
       .valueChanges
       .pipe(
@@ -100,12 +101,12 @@ export class TestComponent implements OnInit {
       .subscribe(users => {
         let result: ApiResponse;
         result = users as ApiResponse;
-        if(result.successful){
+        if (result.successful) {
           this.patternOptions = result.data;
-        }else{
+        } else {
           this.patternOptions = [];
         }
-        
+
         console.log(result)
       }, err => {
         let result: ApiResponse;
@@ -131,14 +132,14 @@ export class TestComponent implements OnInit {
   onSubmitForm() {
     this.isFormLoading = true;
     let test: TestCreate = this.testForm.value;
-    console.log(test)
-    this.testService.createTest(test).subscribe(res => {
+    console.log(this.testForm.value)
+    this.testService.createTest(this.testForm.value).subscribe(res => {
       this.isFormLoading = false;
       let result: ApiResponse;
       result = res as ApiResponse;
       // alert(result.message);
       console.log(result);
-      this.router.navigate(['/test','view',result.data['id']]);
+      this.router.navigate(['/test', 'view', result.data['id']]);
     }, err => {
       this.isFormLoading = false;
       let result: ApiResponse;
@@ -147,21 +148,25 @@ export class TestComponent implements OnInit {
     })
   }
 
-  selectPlayer(id){
+  selectPlayer(id) {
     console.log(this.testForm)
     this.testForm.controls.player_id.setValue(id);
   }
 
-  selectPattern(id){
+  selectPattern(id) {
     this.testForm.controls.pattern_id.setValue(id);
   }
 
-  tabPattern(create){
-    if(create){
+  tabPattern(create) {
+    console.log("tab")
+    this.testForm.controls.pattern_id.setValue(null);
+    this.testForm.controls.pattern.setValue(null);
+    this.testForm.controls.pattern_name.setValue(null);
+    if (create) {
       this.testForm.get('pattern_id').clearValidators();
       this.testForm.get('pattern').setValidators([Validators.required]);
       this.testForm.get('pattern_name').setValidators([Validators.required]);
-    }else{
+    } else {
       this.testForm.get('pattern_id').setValidators([Validators.required]);
       this.testForm.get('pattern').clearValidators();
       this.testForm.get('pattern_name').clearValidators();
@@ -171,4 +176,22 @@ export class TestComponent implements OnInit {
     this.testForm.get('pattern_name').updateValueAndValidity();
   }
 
+  styleChange(change) {
+    console.log(change);
+    this.testForm.controls.pattern_id.setValue(null);
+      this.testForm.controls.pattern.setValue(null);
+      this.testForm.controls.pattern_name.setValue(null);
+    if (change == 2) {
+      this.testForm.get('pattern_id').clearValidators();
+      this.testForm.get('pattern').clearValidators();
+      this.testForm.get('pattern_name').clearValidators();
+    } else {
+      this.testForm.get('pattern_id').setValidators([Validators.required]);
+      this.testForm.get('pattern').clearValidators();
+      this.testForm.get('pattern_name').clearValidators();
+    }
+    this.testForm.get('pattern_id').updateValueAndValidity();
+    this.testForm.get('pattern').updateValueAndValidity();
+    this.testForm.get('pattern_name').updateValueAndValidity();
+  }
 }

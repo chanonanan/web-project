@@ -21,8 +21,7 @@ export const adminLteConf = {
     //   ]},
     // {label: 'COMPONENTS', separator: true},
     {label: 'Dashboard', route: '/', iconClasses: 'fa fa-dashboard'},
-    {label: 'Test History', route: '/login-stat', iconClasses: 'fa fa-tasks'},
-    // {label: 'Traffic statistic', route: '/traffic-stat', iconClasses: 'fa fa-exclamation-triangle'},
+    {label: 'Test History', route: '/history', iconClasses: 'fa fa-tasks'},
     {label: 'Test', route: '/test', iconClasses: 'fa fa-power-off'},
     // {label: 'Boxs', iconClasses: 'fa fa-files-o', children: [
     //     {label: 'Default Box', route: 'boxs/box'},

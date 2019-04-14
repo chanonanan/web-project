@@ -1,2 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding-bottom: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline,
+.mat-form-field-ripple.mat-focused .mat-form-field-ripple,
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent{
+    background-color: transparent;
+}
+
+.mat-form-field-ripple{
+    display: none;
+}
+
+/* .mat-select-arrow-wrapper {
+    display: block !important;
+    float: right !important;
+    padding-top: 10px !important;
+}
+
+.mat-select-trigger {
+    display: block !important;
+} */
+
+.nav-tabs-custom>.nav>li>a {
+    padding: 0 !important;
+  }
+/* 
+  @font-face {
+    font-family: 'thaisansneueregular';
+    src: url('/assets/thaiSans/thaisansneue-regular-webfont.eot');
+    src: url('/assets/thaiSans/thaisansneue-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/thaiSans/thaisansneue-regular-webfont.woff2') format('woff2'),
+         url('/assets/thaiSans/thaisansneue-regular-webfont.woff') format('woff'),
+         url('/assets/thaiSans/thaisansneue-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'thaisansneuebold';
+    src: url('/assets/thaiSans/thaisansneue-bold-webfont.eot');
+    src: url('/assets/thaiSans/thaisansneue-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/thaiSans/thaisansneue-bold-webfont.woff2') format('woff2'),
+         url('/assets/thaiSans/thaisansneue-bold-webfont.woff') format('woff'),
+         url('/assets/thaiSans/thaisansneue-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'thaisansneuesemibold';
+    src: url('/assets/thaiSans/thaisansneue-semibold-webfont.eot');
+    src: url('/assets/thaiSans/thaisansneue-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/thaiSans/thaisansneue-semibold-webfont.woff2') format('woff2'),
+         url('/assets/thaiSans/thaisansneue-semibold-webfont.woff') format('woff'),
+         url('/assets/thaiSans/thaisansneue-semibold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+div{
+	font-family: 'thaisansneueregular', sans-serif; 
+}
+
+*{
+	font-family: 'thaisansneueregular', sans-serif;
+} */

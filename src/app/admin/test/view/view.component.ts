@@ -6,6 +6,7 @@ import { TestService } from 'service/test.service';
 import { ApiResponse } from 'model/apiResponse';
 import { PatternSocketModel } from 'model/pattern';
 import { LapModel } from 'model/test';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -20,7 +21,7 @@ export class TestViewComponent implements OnInit, OnDestroy {
   lapConnection;
   timeConnection;
   timeStopConnection;
-  test_id: number;
+  test_id;
   isLoading = true;
   isPatternLoading = true;
   info: any;
@@ -29,13 +30,14 @@ export class TestViewComponent implements OnInit, OnDestroy {
   startTime;
   interval;
   time = [0, 0, 0, 0];
+  isStart = false;
   constructor(private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private testService: TestService) { }
 
   ngOnInit() {
-    this.getPattern();
+    
 
     this.routeSub = this.route.params.subscribe(params => {
       this.test_id = params['id'];
@@ -44,13 +46,22 @@ export class TestViewComponent implements OnInit, OnDestroy {
         result = res as ApiResponse;
         console.log(result)
         this.isLoading = false;
-        this.info = result.data;
-        this.startTest();
+        if (result.successful) {
+          this.info = result.data;
+          this.getPattern();
+          this.startTest();
+          this.getLab();
+          this.getStartTime();
+          this.getStopTime();
+        }else{
+          this.isPatternLoading = false;
+          alert("การสร้างแบบทดสอบผิดพลาด");
+          this.router.navigate(['/test']);
+        }
+
       })
     })
-    this.getLab();
-    this.getStartTime();
-    this.getStopTime();
+
 
   }
 
@@ -98,10 +109,10 @@ export class TestViewComponent implements OnInit, OnDestroy {
 
   getStartTime() {
     this.timeConnection = this.testService.getStartTime().subscribe(res => {
-      // console.log("startTime");
-      // console.log(res);
-      // this.startTime = res['start'];
-      this.startTimer();
+      this.isStart = res as boolean;
+      if(this.isStart){
+        this.startTimer();
+      }      
     })
   }
 
@@ -110,7 +121,6 @@ export class TestViewComponent implements OnInit, OnDestroy {
       console.log(res);
       clearInterval(this.interval);
       this.time = res['time'];
-      this.pattern.next = "";
       this.pattern.text = res['text'];
     })
   }
@@ -140,7 +150,37 @@ export class TestViewComponent implements OnInit, OnDestroy {
   }
 
   resetTimer() {
-    this.time = [0, 0, 0, 0];
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, reset it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.testService.resetTest(this.test_id).subscribe(res => {
+          let result : ApiResponse;
+          result = res as ApiResponse;
+          console.log(result);
+          if(result.successful){
+            Swal.fire(
+              'Deleted!',
+              'Your test has been reset.',
+              'success'
+            )
+            this.labs = [];
+          }else{
+            Swal.fire(
+              'Error',
+              'Something error',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
 
   beep() {

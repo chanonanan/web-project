@@ -68,11 +68,15 @@ export class TestService {
     return observable;
   } 
 
+  resetTest(test_id){
+    return this.http.delete(apiConst.HOST + apiConst.TEST_URL + '/reset/' + test_id, this.tHelper.setHeader({}));
+  }
+
 
   createTest(test:TestCreate) {
     return this.http.post(apiConst.HOST + apiConst.TEST_URL + '/create', test, this.tHelper.setHeader({}));
   }
-  getTest(id:number){
+  getTest(id){
     return this.http.get(apiConst.HOST + apiConst.TEST_URL + '/'+ id, this.tHelper.setHeader({}));
   }
 }

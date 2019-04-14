@@ -6,3 +6,29 @@
 .tab-no-border {
   border: none;
 }
+
+.has-success{
+  border-color: #00a65a;
+}
+
+.has-success-text{
+  color: #00a65a;
+}
+
+.big-font{
+  font-size: 1.5rem;
+}
+
+.ng-star-inserted{
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.42857143;
+}
+
+.table-cell{
+  display: table-cell !important;
+}
+
+.tab{
+  display: block;
+  padding: 10px 15px;
+}

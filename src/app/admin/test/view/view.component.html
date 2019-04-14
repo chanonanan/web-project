@@ -17,7 +17,7 @@
     <mk-box-content>
       <div *ngIf="pattern" style="height: 183px;">
         <div class="col-md-12">
-          <h1><b>{{pattern.text}}: </b>{{pattern.next}}</h1>
+          <h1><b>{{pattern.text}}</b></h1>
           <h1>{{time[0] | number: '1.0' }}:{{time[1] | number: '2.0' }}:{{time[2] | number: '2.0' }}{{time[3]}}</h1>
           
         </div>
@@ -25,9 +25,9 @@
       </div>
     </mk-box-content>
     <mk-box-footer>
-      <div class="col-md-6 btn-row">
-        <button  mat-flat-button color="primary" (click)="clickStart()">Start</button>
-        <button  mat-flat-button color="warn" (click)="clickStop()">Stop</button>
+      <div class="btn-row">
+        <!-- <button  mat-flat-button color="primary" (click)="clickStart()">Start</button> -->
+        <button  mat-flat-button color="warn" [disabled]="!isStart" (click)="clickStop()">Stop</button>
         <button  mat-flat-button color="accent" (click)="resetTimer()">Reset</button>
       </div>
       <div class="col-md-6">

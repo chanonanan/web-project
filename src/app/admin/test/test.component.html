@@ -18,7 +18,7 @@
             </mk-input-group-addon-right>
             <mk-input-group-content>
                 <input mkInputText formControlName="players_name" class="toto form-control" [matAutocomplete]="player"
-                    placeholder="Search by firstname, lastname, username or email" autocomplete="off"/>
+                    placeholder="Search by firstname, lastname, username or email" autocomplete="off" />
 
                 <mat-autocomplete #player="matAutocomplete">
                     <mat-option *ngIf="isLoading" class="is-loading">
@@ -37,30 +37,42 @@
             </mk-input-group-content>
         </mk-input-group>
         <mk-input-group inputErrorColor="warning" class="col-md-6">
-            <mk-input-group-label>Test Style</mk-input-group-label>
-            <mk-input-group-addon-right><i
+            <mk-input-group-label [ngClass]="testForm.get('style').invalid ? '' : 'has-success-text'">Test Style
+            </mk-input-group-label>
+            <mk-input-group-addon-right [ngClass]="testForm.get('style').invalid ? '' : 'has-success'"><i
                     [ngClass]="testForm.get('style').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
             </mk-input-group-addon-right>
             <mk-input-group-content>
-                <select mkInputSelect formControlName="style" class="toto form-control">
-                <option *ngFor="let style of styles" [value]="style.value">{{style.viewValue}}</option>
-            </select>
+                <select mkInputText formControlName="style" class="toto form-control"
+                    [ngClass]="testForm.get('style').invalid ? '' : 'has-success'" (change)="styleChange(testForm.get('style').value)">
+                    <option *ngFor="let style of styles" [value]="style.value" class="big-font">{{style.viewValue}}
+                    </option>
+                </select>
             </mk-input-group-content>
         </mk-input-group>
         <!-- <mat-form-field class="col-md-6">
-            <mat-label>Test Style</mat-label>
-            <mat-select formControlName="style">
+            <label>
+                <mk-input-group-label [ngClass]="testForm.get('style').invalid ? '' : 'has-success-text'">Test Style
+                </mk-input-group-label>
+            </label>
+            <mat-select formControlName="style" class="toto form-control table-cell"
+                [ngClass]="testForm.get('style').invalid ? '' : 'has-success'">
                 <mat-option *ngFor="let style of styles" [value]="style.value">
                     {{style.viewValue}}
                 </mat-option>
             </mat-select>
+            <span class="input-group-addon">
+                <mk-input-group-addon-right [ngClass]="testForm.get('style').invalid ? '' : 'has-success'"><i
+                    [ngClass]="testForm.get('style').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                </mk-input-group-addon-right>
+            </span>
         </mat-form-field> -->
         <!-- </div> -->
         <div class="col-md-12">
-            <mk-tabs *ngIf="testForm.get('style')!='free'">
+            <mk-tabs *ngIf="testForm.get('style').value != 2 && testForm.get('style').value != null">
                 <mk-tabs-header>Pattern</mk-tabs-header>
                 <mk-tab>
-                    <mk-tab-header><a (click)="tabPattern(false)">Find</a></mk-tab-header>
+                    <mk-tab-header><a class="tab" (click)="tabPattern(false)">Find</a></mk-tab-header>
                     <mk-tab-content>
                         <div class="row">
                             <mk-input-group inputErrorColor="warning" class="col-md-6">
@@ -72,7 +84,7 @@
                                     <input mkInputText formControlName="pattern_name" class="toto form-control"
                                         [matAutocomplete]="pattern"
                                         placeholder="Search by pattern, pattern name, create date or creator" />
-    
+
                                     <mat-autocomplete #pattern="matAutocomplete">
                                         <mat-option *ngIf="isLoading" class="is-loading">
                                             <mat-spinner diameter="50"></mat-spinner>
@@ -90,12 +102,12 @@
                                     </mat-autocomplete>
                                 </mk-input-group-content>
                             </mk-input-group>
-    
+
                         </div>
                     </mk-tab-content>
                 </mk-tab>
                 <mk-tab>
-                    <mk-tab-header><a (click)="tabPattern(true)">Create</a></mk-tab-header>
+                    <mk-tab-header><a class="tab" (click)="tabPattern(true)">Create</a></mk-tab-header>
                     <mk-tab-content>
                         <div class="row">
                             <mk-input-group inputErrorColor="warning" class="col-md-6">
@@ -107,7 +119,7 @@
                                     <input mkInputText formControlName="pattern_name" class="toto form-control" />
                                 </mk-input-group-content>
                             </mk-input-group>
-    
+
                             <mk-input-group inputErrorColor="warning" class="col-md-6">
                                 <mk-input-group-label>Pattern</mk-input-group-label>
                                 <mk-input-group-addon-right><i
@@ -117,13 +129,13 @@
                                     <input mkInputText formControlName="pattern" class="toto form-control" />
                                 </mk-input-group-content>
                             </mk-input-group>
-    
+
                         </div>
                     </mk-tab-content>
                 </mk-tab>
             </mk-tabs>
         </div>
-        
+
 
 
 

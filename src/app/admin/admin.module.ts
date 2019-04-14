@@ -15,29 +15,27 @@ import { MatButtonModule, MatCheckboxModule, MatAutocompleteModule, MatProgressS
 
 import { adminLteConf } from 'admin/admin-lte.conf';
 import { LayoutModule } from 'angular-admin-lte';
-import { LoginStatisticComponent } from 'admin/login-statistic/login-statistic.component';
 import { AreaComponent } from 'admin/graph/area/area.component';
 import { DonutComponent } from 'admin/graph/donut/donut.component';
 import { BarComponent } from 'admin/graph/bar/bar.component';
-import { TrafficStatisticComponent } from 'admin/traffic-statistic/traffic-statistic.component';
 import { DashboardComponent } from 'admin/dashboard/dashboard.component';
 
 import { AuthGuard } from 'authorization/auth.guard';
 import { AuthService } from 'service/auth.service';
 import { TestComponent } from 'admin/test/test.component';
-import { TestViewComponent } from './test/view/view.component';
+import { TestViewComponent } from 'admin/test/view/view.component';
+import { HistoryComponent } from 'admin/history/history.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    LoginStatisticComponent,
     AreaComponent,
     DonutComponent,
     BarComponent,
-    TrafficStatisticComponent,
     DashboardComponent,
     TestComponent,
-    TestViewComponent
+    TestViewComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,
