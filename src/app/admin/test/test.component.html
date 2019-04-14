@@ -44,7 +44,8 @@
             </mk-input-group-addon-right>
             <mk-input-group-content>
                 <select mkInputText formControlName="style" class="toto form-control"
-                    [ngClass]="testForm.get('style').invalid ? '' : 'has-success'" (change)="styleChange(testForm.get('style').value)">
+                    [ngClass]="testForm.get('style').invalid ? '' : 'has-success'"
+                    (change)="styleChange(testForm.get('style').value)">
                     <option *ngFor="let style of styles" [value]="style.value" class="big-font">{{style.viewValue}}
                     </option>
                 </select>
@@ -110,7 +111,7 @@
                     <mk-tab-header><a class="tab" (click)="tabPattern(true)">Create</a></mk-tab-header>
                     <mk-tab-content>
                         <div class="row">
-                            <mk-input-group inputErrorColor="warning" class="col-md-6">
+                            <mk-input-group inputErrorColor="warning" class="col-md-6 no-padding-left">
                                 <mk-input-group-label>Pattern Name</mk-input-group-label>
                                 <mk-input-group-addon-right><i
                                         [ngClass]="testForm.get('pattern_name').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
@@ -120,7 +121,7 @@
                                 </mk-input-group-content>
                             </mk-input-group>
 
-                            <mk-input-group inputErrorColor="warning" class="col-md-6">
+                            <mk-input-group inputErrorColor="warning" class="col-md-6 no-padding-right">
                                 <mk-input-group-label>Pattern</mk-input-group-label>
                                 <mk-input-group-addon-right><i
                                         [ngClass]="testForm.get('pattern').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
@@ -129,6 +130,44 @@
                                     <input mkInputText formControlName="pattern" class="toto form-control" />
                                 </mk-input-group-content>
                             </mk-input-group>
+                            <div class="col-md-6 no-padding-left">
+                                <mk-box header="Click plate to create pattern" [isCollapsable]="false"
+                                    [isRemovable]="false">
+                                    <div class="row text-center" style="padding-bottom: 15px;">
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('1')">1</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <!-- <button>2</button> -->
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('2')">2</button>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center" style="padding-bottom: 15px;">
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('3')">3</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('4')">4</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('5')">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('6')">6</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('7')">7</button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button type=button mat-stroked-button (click)="addPattern('8')">8</button>
+                                        </div>
+                                    </div>
+                                </mk-box>
+                            </div>
 
                         </div>
                     </mk-tab-content>

@@ -9,14 +9,29 @@
       </mk-dropdown-toggle>
       <mk-dropdown-menu>
         <li class="user-header">
-
-          <p>
-            {{user.firstname}} {{user.lastname}}
-          </p>
-        </li>
+            <img src="assets/img/profile.png" class="img-circle" alt="User Image">
+  
+            <p>
+                {{user.firstname}} {{user.lastname}} - <font *ngIf="user.role_id==0">Coach</font><font *ngIf="user.role_id==1">Athlete</font>
+              <small>Member since {{user.createdAt | date :  "MMM. yyyy" }}</small>
+            </p>
+          </li>
+          <li class="user-body">
+            <div class="row">
+              <div class="col-xs-4 text-center">
+                <a href="#">History</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="#">Over all</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="#">Friends</a>
+              </div>
+            </div>
+          </li>
         <li class="user-footer">
           <div class="pull-left">
-            <button type="button" class="btn btn-default btn-flat" (click)="changePassword()">แก้ไขรหัสผ่าน</button>
+            <button type="button" class="btn btn-default btn-flat" (click)="profile()">Profile</button>
           </div>
           <div class="pull-right">
             <button type="button" class="btn btn-default btn-flat" (click)="logout()">ออกจากระบบ</button>

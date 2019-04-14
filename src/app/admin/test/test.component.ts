@@ -194,4 +194,14 @@ export class TestComponent implements OnInit {
     this.testForm.get('pattern').updateValueAndValidity();
     this.testForm.get('pattern_name').updateValueAndValidity();
   }
+
+  addPattern(add:string){
+    let pattern:string = "";
+    console.log(this.testForm.controls.pattern.value)
+    if(this.testForm.controls.pattern.value != null){
+      pattern = this.testForm.controls.pattern.value;
+    }    
+    pattern += add;
+    this.testForm.controls.pattern.setValue(pattern);
+  }
 }

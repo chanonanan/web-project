@@ -16,8 +16,9 @@ export class HeaderInnerComponent implements OnInit {
   }
   ngOnInit() {
     this.user = this.tHelper.getUser() as UserModel;
+    console.log(this.user)
   }
-  changePassword() {
+  profile() {
     this.router.navigate(['/changepassword']);
   }
   logout() {

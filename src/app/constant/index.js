@@ -1,6 +1,6 @@
 module.exports = {
     api : {
-        HOST: 'http://192.168.8.102:3000/',
+        HOST: 'http://192.168.8.100:3000/',
         // HOST: 'http://localhost:3000/',
         TEST_URL: 'api/test',
         AUTH_URL:'auth/login',
