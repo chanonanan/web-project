@@ -6,7 +6,8 @@ import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-sidebar-left-inner',
-  templateUrl: './sidebar-left-inner.component.html'
+  templateUrl: './sidebar-left-inner.component.html',
+  styleUrls: ['./sidebar-left-inner.component.css']
 })
 export class SidebarLeftInnerComponent implements OnInit {
   user: UserModel;
@@ -16,10 +17,10 @@ export class SidebarLeftInnerComponent implements OnInit {
   }
   ngOnInit() {
     this.user = this.tHelper.getUser() as UserModel;
-    console.log(this.user)
+    // console.log(this.user)
   }
   profile() {
-    this.router.navigate(['/changepassword']);
+    this.router.navigate(['/profile']);
   }
   logout() {
     this.tHelper.signOutLocal();

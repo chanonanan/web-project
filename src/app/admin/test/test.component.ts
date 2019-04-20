@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { switchMap, debounceTime, tap, finalize } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
-
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -23,8 +23,8 @@ import { Router } from "@angular/router";
 export class TestComponent implements OnInit {
   coach: UserModel;
   testForm: FormGroup;
-  player_name = new FormControl();
-  players = [{ 'name': 'asdas' }];
+  athlete_name = new FormControl();
+  athletes = [{ 'name': 'asdas' }];
   isFormLoading = true;
   filteredOptions = [];
   patternOptions = [];
@@ -45,87 +45,91 @@ export class TestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.coach = this.tHelper.getUser() as UserModel;
     console.log('coach', this.coach);
-    this.testForm = this.formBuilder.group({
-      test_name: [null, [Validators.required]],
-      date: [new Date(), [Validators.required]],
-      player_id: [null, [Validators.required]],
-      coach_id: [this.coach.id, [Validators.required]],
-      pattern_id: [null, [Validators.required]],
-      pattern_name: [null],
-      pattern: [null],
-      players_name: [null],
-      style: [null, [Validators.required]]
-    });
-    this.testForm
-      .get('players_name')
-      .valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => this.isLoading = true),
-        switchMap(value => this.userService.getUser(value)
-          .pipe(
-            finalize(() => this.isLoading = false),
+    if(this.coach.role_id!=0){
+      Swal.fire({
+        title: "No permission!",
+        type: "warning",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 1500
+      }).then(res=>{
+        this.router.navigate(['/']);
+      }); 
+    }else{
+      this.testForm = this.formBuilder.group({
+        test_name: [null, [Validators.required]],
+        date: [new Date(), [Validators.required]],
+        athlete_id: [null, [Validators.required]],
+        coach_id: [this.coach.id, [Validators.required]],
+        pattern_id: [null, [Validators.required]],
+        pattern_name: [null],
+        pattern: [null],
+        athletes_name: [null],
+        style: [null, [Validators.required]]
+      });
+      this.testForm
+        .get('athletes_name')
+        .valueChanges
+        .pipe(
+          debounceTime(300),
+          tap(() => this.isLoading = true),
+          switchMap(value => this.userService.getAthlete(value)
+            .pipe(
+              finalize(() => this.isLoading = false),
+            )
           )
         )
-      )
-      .subscribe(users => {
-        let result: ApiResponse;
-        result = users as ApiResponse;
-        if (result.successful) {
-          this.filteredOptions = result.data;
-        } else {
+        .subscribe(users => {
+          let result: ApiResponse;
+          result = users as ApiResponse;
+          if (result.successful) {
+            this.filteredOptions = result.data;
+          } else {
+            this.filteredOptions = [];
+          }
+  
+          console.log(result)
+        }, err => {
+          let result: ApiResponse;
+          result = err as ApiResponse;
           this.filteredOptions = [];
-        }
-
-        console.log(result)
-      }, err => {
-        let result: ApiResponse;
-        result = err as ApiResponse;
-        this.filteredOptions = [];
-      });
-
-    this.testForm
-      .get('pattern_name')
-      .valueChanges
-      .pipe(
-        debounceTime(300),
-        tap(() => this.isLoading = true),
-        switchMap(value => this.patternService.getPattern(value)
-          .pipe(
-            finalize(() => this.isLoading = false),
+        });
+  
+      this.testForm
+        .get('pattern_name')
+        .valueChanges
+        .pipe(
+          debounceTime(300),
+          tap(() => this.isLoading = true),
+          switchMap(value => this.patternService.getPattern(value)
+            .pipe(
+              finalize(() => this.isLoading = false),
+            )
           )
         )
-      )
-      .subscribe(users => {
-        let result: ApiResponse;
-        result = users as ApiResponse;
-        if (result.successful) {
-          this.patternOptions = result.data;
-        } else {
+        .subscribe(users => {
+          let result: ApiResponse;
+          result = users as ApiResponse;
+          if (result.successful) {
+            this.patternOptions = result.data;
+          } else {
+            this.patternOptions = [];
+          }
+  
+          console.log(result)
+        }, err => {
+          let result: ApiResponse;
+          result = err as ApiResponse;
           this.patternOptions = [];
-        }
-
-        console.log(result)
-      }, err => {
-        let result: ApiResponse;
-        result = err as ApiResponse;
-        this.patternOptions = [];
-      });
-
-
-    this.isFormLoading = false;
-    this.userService.getUser('test').subscribe(res => {
-      let result: ApiResponse;
-      result = res as ApiResponse;
-      console.log('find by name', result);
-    }, err => {
+        });
+  
+  
       this.isFormLoading = false;
-      let result: ApiResponse;
-      result = err as ApiResponse;
-      console.log(result);
-    })
+    }
+    
 
   }
 
@@ -148,9 +152,9 @@ export class TestComponent implements OnInit {
     })
   }
 
-  selectPlayer(id) {
+  selectAthlete(id) {
     console.log(this.testForm)
-    this.testForm.controls.player_id.setValue(id);
+    this.testForm.controls.athlete_id.setValue(id);
   }
 
   selectPattern(id) {

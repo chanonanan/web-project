@@ -12,13 +12,20 @@ export class BarComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.chartOption = {
+        title: {
+            text: this.data.title
+        },
         color: ['#3398DB'],
         tooltip : {
             trigger: 'axis',
             axisPointer : {
                 type : 'shadow'
-            }
+            },
+            formatter: "Lap: {b} <br/>Time: {c} Sec"
         },
         grid: {
             left: '3%',
@@ -29,7 +36,7 @@ export class BarComponent implements OnInit, OnChanges {
         xAxis : [
             {
                 type : 'category',
-                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                data : this.data.name,
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -44,15 +51,11 @@ export class BarComponent implements OnInit, OnChanges {
             {
                 name:'直接访问',
                 type:'bar',
-                barWidth: '60%',
-                data:[10, 52, 200, 334, 390, 330, 220]
+                // barWidth: '60%',
+                data:this.data.value
             }
         ]
     };
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
     
   }
 

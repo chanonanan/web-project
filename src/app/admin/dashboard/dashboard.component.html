@@ -1,19 +1,25 @@
 <div class="row">
   <div class="col-md-4 col-sm-4 col-xs-12">
-    <mk-box-info header="Login/M" iconBackgroundColor="#41a5f6" iconStyleClass="fa fa-hdd-o">
-      5
+    <mk-box-info header="Coach" iconBackgroundColor="#41a5f6" iconStyleClass="fa fa-hdd-o" [ngClass]="isLoading ? 'loading':''">
+      <div  *ngIf=!isLoading>
+          {{info.coach | number}}
+      </div>
     </mk-box-info>
   </div>
 
   <div class="col-md-4 col-sm-4 col-xs-12">
-    <mk-box-info header="Active Users" iconBackgroundColor="#61bc6c" iconStyleClass="fa fa-code">
-      23,110
+    <mk-box-info header="Athlete" iconBackgroundColor="#61bc6c" iconStyleClass="fa fa-code" [ngClass]="isLoading ? 'loading':''">
+        <div  *ngIf=!isLoading>
+            {{info.athlete | number}}
+        </div>
     </mk-box-info>
   </div>
 
   <div class="col-md-4 col-sm-4 col-xs-12">
-    <mk-box-info header="Active Device" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o">
-      34,350
+    <mk-box-info header="Test" iconBackgroundColor="#fca924" iconStyleClass="fa fa-file-code-o" [ngClass]="isLoading ? 'loading':''">
+        <div  *ngIf=!isLoading>
+            {{info.test | number}}
+        </div>
     </mk-box-info>
   </div>
 
@@ -24,14 +30,15 @@
 <div class="row">
 
   <div class="col-md-6 col-sm-12 col-xs-12">
-    <mk-box header="Login Hits" [isCollapsable]="false" [isRemovable]="false">
-      <app-area [data]=graph_data></app-area>
+    <mk-box header="Latest Test Result" [isCollapsable]="false" [isRemovable]="false">
+      <app-bar [data]=latest *ngIf="hasLatest && !isLoading"></app-bar>
+      <div class="text-center no-data" *ngIf="!hasLatest && !isLoading">Not found</div>
     </mk-box>
 
   </div>
 
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <mk-box header="Concurrent Login by IP Type" [isCollapsable]="false" [isRemovable]="false">
+    <mk-box header="# of Test by Athlete" [isCollapsable]="false" [isRemovable]="false">
       <app-donut [data]=concurrent()></app-donut>
     </mk-box>
 
@@ -51,7 +58,7 @@
 
   <div class="col-md-6 col-sm-12 col-xs-12">
 
-    <mk-box header="Login IP Stack" [isCollapsable]="false" [isRemovable]="false">
+    <mk-box header="Test" [isCollapsable]="false" [isRemovable]="false">
       <app-area [data]=graph_data></app-area>
     </mk-box>
   </div>

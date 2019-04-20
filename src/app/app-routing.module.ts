@@ -8,6 +8,10 @@ import { TestComponent } from 'admin/test/test.component';
 import { TestViewComponent } from 'admin/test/view/view.component';
 import { RegisterComponent } from 'register/register.component';
 import { HistoryComponent } from 'admin/history/history.component';
+import { HistoryViewComponent } from './admin/history/view/view.component';
+
+import { ProfileComponent } from 'admin/profile/profile.component';
+
 
 import { AuthGuard } from 'authorization/auth.guard';
 
@@ -25,35 +29,74 @@ const routes: Routes = [
       }, {
         path: 'history',
         data: {
-          title: 'Test History'
+          title: 'Test History',
+          breadcrumbs: 'History'
         },
         children: [
           {
             path: '',
-            component: HistoryComponent
+            component: HistoryComponent,
+            data: {
+              title: 'Test History',
+              breadcrumbs: 'History'
+            },
           }, {
             path: 'view/:id',
-            component: HistoryComponent
+            component: HistoryViewComponent,
+            data: {
+              title: 'Test History',
+              breadcrumbs: 'View'
+            },
           }
         ]
       }, {
         path: 'test',
         data: {
-          title: 'Test'
+          title: 'Test',
+          breadcrumbs: 'Test'
         },
         children: [
           {
             path: '',
             component: TestComponent,
+            data: {
+              title: 'Test',
+              breadcrumbs: 'Test'
+            },
           }, {
             path: 'view/:id',
-            component: TestViewComponent
+            component: TestViewComponent,
+            data: {
+              title: 'Test View',
+              breadcrumbs: 'View'
+            },
+          }
+        ]
+      }, {
+        path: 'profile',
+        data: {
+          title: 'Profile'
+        },
+        children: [
+          {
+            path: '',
+            component: ProfileComponent,
+            data: {
+              title: 'Profile',
+              breadcrumbs: 'View'
+            },
+          }, {
+            path: ':id',
+            component: ProfileComponent,
+            data: {
+              title: 'Profile',
+              breadcrumbs: 'View'
+            },
           }
         ]
       }
     ]
-  }
-  , {
+  },{
     path: 'login',
     loadChildren: 'login/login.module#LoginModule',
     data: {

@@ -1,7 +1,7 @@
 export class TestCreate {
     test_name:string;
     date:string;
-    player_id:number;
+    athlete_id:number;
     coach_id:number;
     pattern_id:number;
 }
@@ -10,7 +10,7 @@ export class TestModel {
     id:number;
     test_name:string;
     date:string;
-    player_id:number;
+    athlete_id:number;
     coach_id:number;
     createdAt:string;
     updatedAt:string;

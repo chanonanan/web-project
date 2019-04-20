@@ -1,4 +1,4 @@
-<form [formGroup]="testForm" (ngSubmit)="onSubmitForm()">
+<form [formGroup]="testForm" (ngSubmit)="onSubmitForm()" autocomplete="off">
     <mk-box header="Test Information" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isFormLoading">
 
         <!-- <div class="row"> -->
@@ -12,15 +12,15 @@
             </mk-input-group-content>
         </mk-input-group>
         <mk-input-group inputErrorColor="warning" class="col-md-6">
-            <mk-input-group-label>Player Name</mk-input-group-label>
+            <mk-input-group-label>Athlete Name</mk-input-group-label>
             <mk-input-group-addon-right><i
-                    [ngClass]="testForm.get('player_id').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                    [ngClass]="testForm.get('athlete_id').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
             </mk-input-group-addon-right>
             <mk-input-group-content>
-                <input mkInputText formControlName="players_name" class="toto form-control" [matAutocomplete]="player"
+                <input mkInputText formControlName="athletes_name" class="toto form-control" [matAutocomplete]="athlete"
                     placeholder="Search by firstname, lastname, username or email" autocomplete="off" />
 
-                <mat-autocomplete #player="matAutocomplete">
+                <mat-autocomplete #athlete="matAutocomplete">
                     <mat-option *ngIf="isLoading" class="is-loading">
                         <mat-spinner diameter="50"></mat-spinner>
                     </mat-option>
@@ -28,7 +28,7 @@
                     </mat-option>
                     <ng-container *ngIf="!isLoading">
                         <mat-option *ngFor="let user of filteredOptions" [value]="user.firstname"
-                            (click)="selectPlayer(user.id)">
+                            (click)="selectAthlete(user.id)">
                             <span>{{ user.firstname }} {{user.lastname}}</span>
                             <small> | username: {{user.username}}</small>
                         </mat-option>

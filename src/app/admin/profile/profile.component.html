@@ -1,0 +1,161 @@
+<div class="row">
+
+    <div class="col-md-3">
+        <mk-box boxColor="primary" [isCollapsable]="false" [isRemovable]="false" [isLoading]=isLoading>
+            <mk-box-content *ngIf="!isLoading">
+                <img class="profile-user-img img-responsive img-circle" [src]="profile.img"
+                    alt="User profile picture">
+
+                <h3 class="profile-username text-center">{{profile.firstname}} {{profile.lastname}}</h3>
+
+                <p class="text-muted text-center">{{profile.role}}</p>
+
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item" *ngIf="profile.role_id == 0">
+                        <b>Create Test</b> <a class="pull-right">{{total}}</a>
+                    </li>
+                    <li class="list-group-item" *ngIf="profile.role_id == 1">
+                        <b>Test</b> <a class="pull-right">{{total}}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Email</b> <a class="pull-right">{{profile.email}}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Join</b> <a class="pull-right">{{profile.createdAt | date :  "dd MMM y"}}</a>
+                    </li>
+                </ul>
+
+                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+            </mk-box-content>
+
+        </mk-box>
+
+    </div>
+    <div class="col-md-9">
+        <mk-tabs tabsColor="primary">
+            <mk-tab>
+                <mk-tab-header><a class="tab">Timeline</a></mk-tab-header>
+                <mk-tab-content>
+                    <table class="table table-bordered table-hover" matSort (matSortChange)="sortData($event)"
+                        *ngIf="!isLoading">
+                        <thead>
+                            <tr>
+                                <!-- <th>Test Name</th>
+                                <th *ngIf="profile.role_id==0">Athlete</th>
+                                <th *ngIf="profile.role_id==1">Coach</th>
+                                <th>Date</th> -->
+                                <th mat-sort-header="test_name">Test Name</th>
+                                <th mat-sort-header="Athlete.firstname" *ngIf="profile.role_id==0">Athlete</th>
+                                <th mat-sort-header="Coach.firstname" *ngIf="profile.role_id==1">Coach</th>
+                                <th mat-sort-header="date">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let test of tests| paginate: { id: 'server', itemsPerPage: perPage, currentPage: currentPage, totalItems: total }">
+                                <td><a [routerLink]="['/history/view',test.id]">{{test.test_name}}</a></td>
+                                <td *ngIf="profile.role_id==0"><a
+                                        [routerLink]="['/profile',test.athlete_id]">{{test.Athlete.firstname}}
+                                        {{test.Athlete.lastname}}</a></td>
+                                <td *ngIf="profile.role_id==1"><a
+                                        [routerLink]="['/profile',test.coach_id]">{{test.Coach.firstname}}
+                                        {{test.Coach.lastname}}</a></td>
+                                <td><a>{{test.date | date :  "dd MMM y HH:mm:ss" }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="tests.length == 0 && !isLoading" class="row text-center">
+                        Not found
+                    </div>
+                    <pagination-template #p="paginationApi" (pageChange)="getPage($event)" id="server"
+                        class="my-pagination" *ngIf="tests.length != 0 && !isLoading">
+                        <nav aria-label="Page navigation" style="display:flex;justify-content: center;">
+                            <ul class="pagination pagination-lg">
+                                <li [class.disabled]="p.isFirstPage()">
+                                    <a *ngIf="!p.isFirstPage()" (click)="p.previous()" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    <a *ngIf="p.isFirstPage()" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+
+                                <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+                                    <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                        <span>{{ page.label }}</span>
+                                    </a>
+                                    <a *ngIf="p.getCurrent() === page.value">
+                                        <span>{{ page.label }}<span class="sr-only">(current)</span></span>
+                                    </a>
+                                </li>
+                                <li [class.disabled]="p.isLastPage()">
+                                    <a *ngIf="!p.isLastPage()" (click)="p.next()" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    <a *ngIf="p.isLastPage()" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </pagination-template>
+                </mk-tab-content>
+            </mk-tab>
+            <mk-tab *ngIf="isOwn">
+                <mk-tab-header><a class="tab">Setting</a></mk-tab-header>
+                <mk-tab-content>
+                    <form class="form-horizontal" [formGroup]="userForm" (ngSubmit)="onSubmitForm()" *ngIf=!isLoading>
+                        <div class="form-group col-md-12">
+                            <label for="inputName" class="col-sm-2 control-label">Firstname</label>
+                            <div class="col-sm-10 input-group">
+                                <input type="text" formControlName="firstname" class="form-control" id="inputName"
+                                    placeholder="firstname">
+                                <span class="input-group-addon">
+                                        <i [ngClass]="userForm.get('firstname').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputName" class="col-sm-2 control-label">Lastname</label>
+                            <div class="col-sm-10 input-group">
+                                <input type="text" formControlName="lastname" class="form-control" id="inputName"
+                                    placeholder="lastname">
+                                <span class="input-group-addon">
+                                        <i [ngClass]="userForm.get('lastname').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10 input-group">
+                                <input type="email" formControlName="email" class="form-control" id="inputEmail"
+                                    placeholder="Email">
+                                <span class="input-group-addon">
+                                        <i [ngClass]="userForm.get('email').invalid ? 'fa fa-times' : 'fa fa-check'"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputFile" class="col-sm-2 control-label">Profile Picture</label>
+                            <div class="col-sm-10 input-group">
+                                <input type='file' (change)="readURL($event);" class="form-control" />
+                                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <img id="blah" [src]="userForm.get('img').value" alt="your image"
+                                    class="profile-user-img img-responsive img-circle preview-img" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" [disabled]=isSubmit class="btn btn-danger">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </mk-tab-content>
+            </mk-tab>
+        </mk-tabs>
+    </div>
+</div>

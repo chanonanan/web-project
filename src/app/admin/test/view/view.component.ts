@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TestService } from 'service/test.service';
+import { PatternService } from 'service/pattern.service';
 
 import { ApiResponse } from 'model/apiResponse';
 import { PatternSocketModel } from 'model/pattern';
@@ -31,10 +32,14 @@ export class TestViewComponent implements OnInit, OnDestroy {
   interval;
   time = [0, 0, 0, 0];
   isStart = false;
-  constructor(private route: ActivatedRoute,
+  isStop = false;
+  constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private testService: TestService) { }
+    private testService: TestService,
+    private patternService: PatternService,
+    ) { }
 
   ngOnInit() {
     
@@ -56,7 +61,16 @@ export class TestViewComponent implements OnInit, OnDestroy {
         }else{
           this.isPatternLoading = false;
           alert("การสร้างแบบทดสอบผิดพลาด");
-          this.router.navigate(['/test']);
+          Swal.fire({
+            title: "Error!",
+            text: result.message,
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1500
+          }).then(res=>{
+            this.router.navigate(['/test']);
+          })
+          
         }
 
       })
@@ -107,6 +121,26 @@ export class TestViewComponent implements OnInit, OnDestroy {
     this.testService.stop();
   }
 
+  clickSave() {
+    this.patternService.update(this.info.Pattern.id,this.info.Pattern.pattern).subscribe(res => {
+      console.log(res); 
+      let result: ApiResponse;
+      result = res as ApiResponse;
+      if(result.successful){
+        Swal.fire({
+          title: "Save!",
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(res=>{
+          this.router.navigate(['/history', 'view', this.test_id]);
+        });
+        
+      }
+    });
+  }
+
   getStartTime() {
     this.timeConnection = this.testService.getStartTime().subscribe(res => {
       this.isStart = res as boolean;
@@ -122,6 +156,8 @@ export class TestViewComponent implements OnInit, OnDestroy {
       clearInterval(this.interval);
       this.time = res['time'];
       this.pattern.text = res['text'];
+      this.isStop = true;
+      this.info.Pattern.pattern = res['pattern'];
     })
   }
 

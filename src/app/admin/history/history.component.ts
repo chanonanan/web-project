@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TestService } from 'service/test.service';
+import { ApiResponse } from 'model/apiResponse';
+
 
 @Component({
   selector: 'app-history',
@@ -13,33 +16,29 @@ export class HistoryComponent implements OnInit {
   search_text = '';
   order = '';
   sort = '';
-  constructor() { }
+  tests = [];
+  constructor(
+    private testService: TestService,
+  ) { }
 
   ngOnInit() {
+    this.getAllTest(1);
   }
 
-  getData(page:number){
-    // this.client.getClients(page,this.sort,this.order,this.search_text).subscribe(result => {
-    //   let res: ApiResponse;
-    //   // console.log("getClient",result)
-    //   res = result as ApiResponse;
-    //   this.isLoading = false;
-    //   if (res.successful) {
-    //     this.clients = res.data.clients;
-    //     this.currentPage = res.data.this_page;
-    //     this.total = res.data.total_item;
-    //     this.perPage = res.data.per_page;
-        
-    //     this.clients.forEach(client => {
-    //       var now = new Date();
-    //       var login = Date.parse(client['last_login']);
-    //       if ((now.getTime() - login) / 60000 < 5) {
-    //         client['status'] = true;
-    //       }
-    //     });
-    //     // console.log(this.clients)
-    //   }
-    // });
+  getAllTest(page:number){
+    // this.isLoading = true;
+    this.testService.getAllTest(page,this.sort,this.order,this.search_text).subscribe(res =>{
+      console.log(res)
+      let result:ApiResponse;
+      result = res as ApiResponse;
+      console.log(result.data)
+      this.currentPage = result.data.this_page;
+      this.total = result.data.total_item;
+      this.perPage = result.data.per_page;
+      this.tests = result.data.test;
+      this.isLoading = false;
+    })
+
   }
 
   sortData(sort){
@@ -53,11 +52,14 @@ export class HistoryComponent implements OnInit {
     if(this.sort == "status"){
       this.sort = "last_login";
     }
-    this.getData(this.currentPage);
+    this.getAllTest(1);
   }
 
   search(){
-    // console.log(this.search_text)
-    this.getData(1);
+    this.getAllTest(1);
+  }
+
+  getPage(page: number){
+    this.getAllTest(page);
   }
 }

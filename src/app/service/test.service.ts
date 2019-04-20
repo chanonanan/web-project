@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { api as apiConst } from 'constant';
 import { TokenHelper } from 'authorization/token.helper';
 import { TestCreate } from 'model/test';
@@ -30,6 +30,11 @@ export class TestService {
   stop(){
     this.socket.emit('stop', true);    
   }
+
+  save(){
+    this.socket.emit('save', true);    
+  }
+
   getPattern() {
     let observable = new Observable(observer => {
       this.socket = io(apiConst.HOST);
@@ -76,7 +81,30 @@ export class TestService {
   createTest(test:TestCreate) {
     return this.http.post(apiConst.HOST + apiConst.TEST_URL + '/create', test, this.tHelper.setHeader({}));
   }
+
   getTest(id){
     return this.http.get(apiConst.HOST + apiConst.TEST_URL + '/'+ id, this.tHelper.setHeader({}));
+  }
+
+  getAllTest(page:number,sort:string,order:string,search:string){
+    let page_str = page.toString();
+    let params = new HttpParams();
+    params = params.append('page', page_str);
+    if(sort != '' && sort != null){
+      params = params.append('sort', sort);
+    }
+    if(order != '' && order != null){
+      params = params.append('order', order);
+    }
+    if(search != '' && search != null){
+      params = params.append('search', search);
+    }
+    return this.http.get(apiConst.HOST + apiConst.TEST_URL + '/all', this.tHelper.setHeader(params));
+  }
+
+  getHistory(id:string){
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this.http.get(apiConst.HOST + apiConst.HISTORY_URL, this.tHelper.setHeader(params));
   }
 }

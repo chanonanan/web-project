@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { DashBoardService } from 'service/dashboard.service';
+import { ApiResponse } from 'model/apiResponse';
+import { TokenHelper } from 'authorization/token.helper';
+import { UserModel } from 'model/user';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +13,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+    user: UserModel;
+    isLoading = true;
+    info:any;
+    latest:any;
+    hasLatest = false;
   graph_data = {
     'chart' : {
         'label' : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -160,9 +171,45 @@ lastMinLogoutOption = {
 };
 
 
-  constructor() { }
+  constructor(
+    private dashBoardService: DashBoardService,
+    private tHelper: TokenHelper,
+  ) { }
 
   ngOnInit() {
+      this.user = this.tHelper.getUser() as UserModel;
+      this.get(this.user.id);
+  }
+
+  get(id:string){
+      this.dashBoardService.get(id).subscribe(res =>{
+          let result: ApiResponse;
+          result = res as ApiResponse;
+          console.log(result)
+          this.info = result.data.info;
+          if(result.data.latest.Records){
+            this.latest = this.barChart(result.data.latest.Records,result.data.latest.test_name);
+            if(this.latest.length!=0){
+                this.hasLatest = true;
+            }
+            console.log(this.latest)
+          }
+          this.isLoading = false;
+      })
+  }
+
+  barChart(data:any,title:string){
+      
+      let result = {
+          title: "Test: " + title,
+          name: [],
+          value: [],
+      };
+    for(let i of data){
+        result.name.push(i.lap);
+        result.value.push(i.duration/1000);
+    }
+    return result;
   }
 
   concurrent(){

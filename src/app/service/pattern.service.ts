@@ -13,11 +13,9 @@ export class PatternService {
     let params = new HttpParams().set('search', search);
     return this.http.post(apiConst.HOST + apiConst.PATTERN_URL,{'search':search}, this.tHelper.setHeader({}));
   }
-  // auth(username: string, password: string) {
-  //   console.log(username,password)
-  //   return this.http.post(apiConst.HOST + apiConst.AUTH_URL, {
-  //     username: username,
-  //     password: password
-  //   }, this.tHelper.setHeader());
-  // }
+
+  update(id:string,pattern:string){
+    return this.http.put(apiConst.HOST + apiConst.PATTERN_URL, {'id': id, 'pattern': pattern}, this.tHelper.setHeader({}));
+  }
+
 }

@@ -29,7 +29,12 @@
 
 .nav-tabs-custom>.nav>li>a {
     padding: 0 !important;
-  }
+}
+
+.tab{
+    display: block;
+    padding: 10px 15px;
+}
 /* 
   @font-face {
     font-family: 'thaisansneueregular';
@@ -77,4 +82,44 @@ div{
 
 .no-padding-right{
     padding-right: 0 !important;
+}
+
+.pagination .active a{
+    background-color: #3c8dbc !important;
+    border-color: #3c8dbc !important;
+}
+
+.pagination {
+    margin: 0 !important;
+}
+
+.loading>.info-box:before {
+    width: 100%;
+    min-height: inherit;
+    z-index: 50;
+    background: rgba(255,255,255,0.8);
+    border-radius: 3px;
+    content: " ";
+    position: absolute;
+  }
+  
+  .loading>.info-box .info-box-icon i{
+    display: none;
+  }
+  
+  .loading>.info-box .info-box-icon:after {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: -.4em;
+  /*   text-align: center; */
+    content: "\f021";
+    font: normal normal normal 1em/1 FontAwesome;
+    webkit-animation: fa-spin 1s infinite linear;
+    animation: fa-spin 1s infinite linear;
+    z-index: 999;
+    color: #555;
+  }
+
+.profile-user-img {
+    height: 100px !important;
 }

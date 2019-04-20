@@ -1,9 +1,9 @@
 <div class="user-panel">
     <div class="pull-left image">
-      <img src="assets/img/profile.png" class="img-circle" alt="User Image">
+      <img (click)=profile() [src]="user.img" class="img-circle profile-img" alt="User Image">
     </div>
     <div class="pull-left info">
-      <p>{{user.firstname}} {{user.lastname}}</p>
-      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+      <p (click)=profile() class="profile-link">{{user.firstname}} {{user.lastname}}</p>
+      <a ><i class="fa fa-circle text-success"></i> Online</a>
     </div>
   </div>

@@ -1,6 +1,6 @@
-<mk-box header="Test History" [isCollapsable]="false" [isRemovable]="false" contentStyleClass="table-responsive">
+<mk-box header="Test History" [isCollapsable]="false" [isRemovable]="false" contentStyleClass="table-responsive" [isLoading]=isLoading>
   <mk-box-header>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-8 pull-right no-padding">
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-7 pull-right no-padding">
       <form (ngSubmit)="search()">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" name="search_text" [(ngModel)]="search_text">
@@ -17,21 +17,57 @@
     <table class="table table-bordered table-hover" matSort (matSortChange)="sortData($event)">
       <thead>
         <tr>
-          <th mat-sort-header="name">Test Name</th>
-          <th mat-sort-header="player">Player</th>
-          <th mat-sort-header="coach">Coach</th>
+          <th mat-sort-header="test_name">Test Name</th>
+          <th mat-sort-header="athlete.firstname">Athlete</th>
+          <th mat-sort-header="coach.firstname">Coach</th>
           <th mat-sort-header="date">Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let in of [1,2,3,4,5,6,7,8,9,10]">
-          <td><a [routerLink]="['/history',in,'view']">Test {{in}}</a></td>
-          <td><a [routerLink]="['/history',in,'view']">Player {{in}}</a></td>
-          <td><a [routerLink]="['/history',in,'view']">Coach {{in}}</a></td>
-          <td><a [routerLink]="['/history',in,'view']">-</a></td>
+        <tr *ngFor="let test of tests | paginate: { id: 'server', itemsPerPage: perPage, currentPage: currentPage, totalItems: total }">
+          <td><a [routerLink]="['/history/view',test.id]">{{test.test_name}}</a></td>
+          <td><a [routerLink]="['/profile',test.athlete_id]">{{test.Athlete.firstname}} {{test.Athlete.lastname}}</a></td>
+          <td><a [routerLink]="['/profile',test.coach_id]">{{test.Coach.firstname}} {{test.Coach.lastname}}</a></td>
+          <td><a >{{test.date | date :  "dd MMM y HH:mm:ss" }}</a></td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="tests.length == 0 && !isLoading" class="col-md-12 text-center">
+      Not found
+    </div>
   </mk-box-content>
-
+  <mk-box-footer>
+      <pagination-template #p="paginationApi" *ngIf="tests.length != 0 && !isLoading"  (pageChange)="getPage($event)" id="server" class="my-pagination">
+        <nav aria-label="Page navigation" style="display:flex;justify-content: center;">
+          <ul class="pagination pagination-lg">
+            <li [class.disabled]="p.isFirstPage()">
+              <a *ngIf="!p.isFirstPage()" (click)="p.previous()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+              <a *ngIf="p.isFirstPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+  
+            <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+              <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                <span>{{ page.label }}</span>
+              </a>
+              <a *ngIf="p.getCurrent() === page.value">
+                <span>{{ page.label }}<span class="sr-only">(current)</span></span>
+              </a>
+            </li>
+            <li [class.disabled]="p.isLastPage()">
+              <a *ngIf="!p.isLastPage()" (click)="p.next()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+              <a *ngIf="p.isLastPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+  
+      </pagination-template>
+    </mk-box-footer>
 </mk-box>

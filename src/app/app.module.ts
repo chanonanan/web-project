@@ -30,6 +30,10 @@ import { MatButtonModule, MatCheckboxModule, MatAutocompleteModule, MatProgressS
 
 import { AuthGuard } from 'authorization/auth.guard';
 import { AuthService } from 'service/auth.service';
+import { ProfileComponent } from 'admin/profile/profile.component';
+import { HistoryViewComponent } from './admin/history/view/view.component';
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -42,6 +46,8 @@ import { AuthService } from 'service/auth.service';
     AreaComponent,
     DonutComponent,
     BarComponent,
+    ProfileComponent,
+    HistoryViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,8 @@ import { AuthService } from 'service/auth.service';
     MatProgressSpinnerModule,
     MatSelectModule,
     NgxEchartsModule,
-    MatSortModule
+    MatSortModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthGuard,

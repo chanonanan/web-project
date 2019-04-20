@@ -1,0 +1,10 @@
+.profile-link:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.profile-img:hover{
+  cursor: pointer;
+  /* padding: 1px; */
+    border: 2px solid #d2d6de;
+}
