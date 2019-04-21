@@ -6,7 +6,8 @@ import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-header-inner',
-  templateUrl: './header-inner.component.html'
+  templateUrl: './header-inner.component.html',
+  styleUrls: ['./header-inner.component.css']
 })
 export class HeaderInnerComponent implements OnInit {
   user: UserModel;
@@ -19,7 +20,13 @@ export class HeaderInnerComponent implements OnInit {
     // console.log(this.user)
   }
   profile() {
-    this.router.navigate(['/changepassword']);
+    this.router.navigate(['/profile']);
+  }
+  history() {
+    this.router.navigate(['/history']);
+  }
+  dashboard() {
+    this.router.navigate(['/']);
   }
   logout() {
     this.tHelper.signOutLocal();

@@ -39,12 +39,15 @@ export class BarComponent implements OnInit, OnChanges {
                 data : this.data.name,
                 axisTick: {
                     alignWithLabel: true
-                }
+                },
+                name : 'Lap',
+                nameLocation: 'middle',
             }
         ],
         yAxis : [
             {
-                type : 'value'
+                type : 'value',
+                name : 'Time',
             }
         ],
         series : [

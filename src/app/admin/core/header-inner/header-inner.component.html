@@ -2,7 +2,7 @@
   <ul class="nav navbar-nav">
     <li mk-dropdown type="list" [isWrapper]="false" class="user user-menu">
       <mk-dropdown-toggle>
-        <a #toggleElement>
+        <a #toggleElement class="pointer">
           <img [src]="user.img" class="user-image" alt="User Image">
           <span class="hidden-xs">{{user.username}}</span>
         </a>
@@ -18,13 +18,13 @@
           </li>
           <li class="user-body">
             <div class="row">
-              <div class="col-xs-4 text-center">
-                <a href="#">History</a>
+              <div class="col-xs-4 text-center pointer">
+                <a (click)="history()">History</a>
               </div>
-              <div class="col-xs-4 text-center">
-                <a href="#">Over all</a>
+              <div class="col-xs-4 text-center pointer">
+                <a (click)="dashboard()">Dashboard</a>
               </div>
-              <div class="col-xs-4 text-center">
+              <div class="col-xs-4 text-center pointer">
                 <a href="#">Friends</a>
               </div>
             </div>
