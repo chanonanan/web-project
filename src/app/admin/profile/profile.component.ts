@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 
@@ -21,6 +21,7 @@ import Swal from 'sweetalert2'
 export class ProfileComponent implements OnInit {
   id: string;
   private routeSub: any;
+  routerEvents: any;
   isOwn = true;
   isLoading = true;
   isSubmit = false;
@@ -36,13 +37,26 @@ export class ProfileComponent implements OnInit {
   userForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private tHelper: TokenHelper,
     private formBuilder: FormBuilder,
     private location: Location,
-  ) { }
+  ) {
+    this.routerEvents = router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        //console.log(event);
+          console.log("start!");
+          this.isLoading = true;
+
+
+
+      }
+    });
+   }
 
   ngOnInit() {
+    
     console.log("init");
     this.routeSub = this.route.params.subscribe(params => {
       var user = this.tHelper.getUser();

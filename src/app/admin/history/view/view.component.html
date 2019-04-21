@@ -1,35 +1,52 @@
 <div class="content-warp">
-  <mk-box header="Test Information" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
-    contentStyleClass="table-responsive" class="col-md-6">
-    <div class="col-md-12" *ngIf="!isLoading">
-      <h3><b>Test Name: </b> {{history.test_name}}</h3>
-      <h3><b>Date: </b> {{history.date | date : "d MMMM yyyy, HH:mm:ss"}}</h3>
-      <h3><b>Athlete: </b> <a [routerLink]="['/profile',history.Athlete.id]"> {{history.Athlete.firstname}} {{history.Athlete.lastname}}</a></h3>
-      <h3><b>Coach: </b> <a [routerLink]="['/profile',history.Coach.id]"> {{history.Coach.firstname}} {{history.Coach.lastname}}</a></h3>
-      <h3><b>Pattern: </b> {{history.Pattern.pattern}}</h3>
-    </div>
-  </mk-box>
-
-  <mk-box header="Test" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
-    contentStyleClass="table-responsive" class="col-md-6">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>Lap</th>
-          <th>Time (sec)</th>
-          <th>From</th>
-          <th>To</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let lab of labs">
-          <td>{{lab.lap}}</td>
-          <td>{{lab.time[0] | number: '1.0' }}:{{lab.time[1] | number: '2.0' }}:{{lab.time[2] | number: '3.0' }}</td>
-          <td>{{lab.from}}</td>
-          <td>{{lab.to}}</td>
-        </tr>
-
-      </tbody>
-    </table>
-  </mk-box>
+  <div class="row">
+      <div class="col-md-6">
+          <mk-box header="Test Information" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
+            contentStyleClass="table-responsive">
+            <div class="box-loading-info">
+                <div class="col-md-12" *ngIf="!isLoading">
+                    <h3><b>Test Name: </b> {{history.test_name}}</h3>
+                    <h3><b>Date: </b> {{history.date | date : "d MMMM yyyy, HH:mm:ss"}}</h3>
+                    <h3><b>Athlete: </b> <a [routerLink]="['/profile',history.Athlete.id]"> {{history.Athlete.firstname}}
+                        {{history.Athlete.lastname}}</a></h3>
+                    <h3><b>Coach: </b> <a [routerLink]="['/profile',history.Coach.id]"> {{history.Coach.firstname}}
+                        {{history.Coach.lastname}}</a></h3>
+                    <h3><b>Pattern: </b> {{history.Pattern.pattern}}</h3>
+                  </div>
+            </div>
+            
+          </mk-box>
+          <mk-box header="Test Result" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading">
+              <div class="box-loading-data">
+                  <app-bar [data]=result *ngIf="!isLoading"></app-bar>
+              </div>
+            
+          </mk-box>
+        </div>
+        <div class="col-md-6">
+          <mk-box header="Test" [isCollapsable]="false" [isRemovable]="false" [isLoading]="isLoading"
+            contentStyleClass="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Lap</th>
+                  <th>Time (sec)</th>
+                  <th>From</th>
+                  <th>To</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lab of labs">
+                  <td>{{lab.lap}}</td>
+                  <td>{{lab.time[0] | number: '1.0' }}:{{lab.time[1] | number: '2.0' }}:{{lab.time[2] | number: '3.0' }}</td>
+                  <td>{{lab.from}}</td>
+                  <td>{{lab.to}}</td>
+                </tr>
+      
+              </tbody>
+            </table>
+          </mk-box>
+        </div>
+  </div>
+  
 </div>

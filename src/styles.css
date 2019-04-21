@@ -123,3 +123,19 @@ div{
 .profile-user-img {
     height: 100px !important;
 }
+
+.loading-box{
+    border: none;
+    height: 50px;
+    margin-top: 20px;
+    box-shadow: none;
+}
+
+.box-loading-data{
+    min-height: 400px;
+    line-height: 400px;
+}
+
+.box-loading-info{
+    min-height: 183px;
+}

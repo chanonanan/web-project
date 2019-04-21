@@ -1,28 +1,30 @@
-<div class="content-warp">
+<div class="row">
   <div class="col-md-6">
     <mk-box header="Test Information" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isLoading"
     contentStyleClass="table-responsive">
-    <div class="col-md-12" *ngIf="info">
-      <h3><b>Test Name: </b> {{info.test_name}}</h3>
-      <h3><b>Date: </b> {{info.date | date : "d MMMM yyyy, HH:mm:ss"}}</h3>
-      <h3><b>Athlete: </b> {{info.Athlete.firstname}} {{info.Athlete.lastname}}</h3>
-      <h3><b>Coach: </b> {{info.Coach.firstname}} {{info.Coach.lastname}}</h3>
-      <h3><b>Pattern: </b> {{info.Pattern.pattern}}</h3>
+    <div class="box-loading-info">
+        <div class="col-md-12" *ngIf="info">
+            <h3><b>Test Name: </b> {{info.test_name}}</h3>
+            <h3><b>Date: </b> {{info.date | date : "d MMMM yyyy, HH:mm:ss"}}</h3>
+            <h3><b>Athlete: </b> {{info.Athlete.firstname}} {{info.Athlete.lastname}}</h3>
+            <h3><b>Coach: </b> {{info.Coach.firstname}} {{info.Coach.lastname}}</h3>
+            <h3><b>Pattern: </b> {{info.Pattern.pattern}}</h3>
+          </div>
     </div>
+    
   </mk-box>
   </div>
   <div class="col-md-6">
     <mk-box header="Control" [isCollapsable]="true" [isRemovable]="false" [isLoading]="isPatternLoading"
     contentStyleClass="table-responsive">
     <mk-box-content>
-      <div *ngIf="pattern" style="height: 183px;">
-        <div class="col-md-12">
-          <h1><b>{{pattern.text}}</b></h1>
-          <h1>{{time[0] | number: '1.0' }}:{{time[1] | number: '2.0' }}:{{time[2] | number: '2.0' }}{{time[3]}}</h1>
-          
+        <div class="box-loading-info">
+          <div class="col-md-12" *ngIf="pattern">
+            <h1><b>{{pattern.text}}</b></h1>
+            <h1>{{time[0] | number: '1.0' }}:{{time[1] | number: '2.0' }}:{{time[2] | number: '2.0' }}{{time[3]}}</h1>
+          </div>
         </div>
-        
-      </div>
+      
     </mk-box-content>
     <mk-box-footer>
       <div class="btn-row">

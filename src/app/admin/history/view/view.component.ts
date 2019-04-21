@@ -14,6 +14,7 @@ export class HistoryViewComponent implements OnInit {
   history:any;
   labs:any;
   isLoading = true;
+  result:any;
   constructor(
     private route: ActivatedRoute,
     private testService: TestService,
@@ -30,6 +31,7 @@ export class HistoryViewComponent implements OnInit {
           result = res as ApiResponse;
           this.history = result.data.test; 
           this.labs = result.data.record; 
+          this.result = this.barChart(this.labs,null);
           for(let lab of this.labs){
             var d = new Date(lab['duration']);
             lab['time'] = [d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()]
@@ -46,5 +48,19 @@ export class HistoryViewComponent implements OnInit {
       this.routeSub.unsubscribe();
     }
   }
+
+  barChart(data:any,title:string){
+      
+    let result = {
+        title: title,
+        name: [],
+        value: [],
+    };
+  for(let i of data){
+      result.name.push(i.lap);
+      result.value.push(i.duration/1000);
+  }
+  return result;
+}
 
 }
